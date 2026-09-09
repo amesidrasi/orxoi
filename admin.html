@@ -6,63 +6,73 @@
 <title>Όρχοι — Διαχείριση</title>
 <style>
 :root{
-  --navy:#1b3b63;
-  --navy-d:#142c4b;
-  --band:#eaeff5;
-  --paper:#ffffff;
-  --line:#ccd7e2;
-  --ink:#16212e;
-  --sub:#5f7183;
-  --ok:#1a7a45;
-  --bad:#b02525;
-  --idle:#8b98a6;
+  --navy:#1b3b63; --band:#eaeff5; --paper:#fff; --line:#ccd7e2;
+  --ink:#16212e; --sub:#5f7183; --ok:#1a7a45; --bad:#b02525; --idle:#8b98a6;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   font-size:15px;line-height:1.45}
-button,input{font:inherit;color:inherit}
+button,input,textarea{font:inherit;color:inherit}
 
-header{position:sticky;top:0;z-index:20;background:var(--navy);color:#fff;padding:.75rem 1.25rem;text-align:center}
+header{position:sticky;top:0;z-index:30;background:var(--navy);color:#fff;padding:.7rem 1.25rem;text-align:center}
 header h1{margin:0;font-size:1.0625rem;font-weight:650}
 header .sub{font-size:.8125rem;color:#b9c7d8;margin-top:.1rem}
-header .right{position:absolute;right:1.25rem;top:.85rem;display:flex;gap:.5rem;align-items:center}
+header .right{position:absolute;right:1.25rem;top:.8rem;display:flex;gap:.5rem;align-items:center}
 header .right span{font-size:.75rem;color:#9fb1c6}
 header button{background:transparent;border:1px solid #3d5a80;color:#cddaea;
   padding:.3rem .7rem;border-radius:5px;cursor:pointer;font-size:.8125rem}
 header button:hover{border-color:#fff;color:#fff}
 
+.daystrip{background:var(--band);border-bottom:1px solid var(--line);
+  padding:.6rem 1.25rem;display:flex;gap:1.25rem;align-items:center;flex-wrap:wrap}
+.daystrip label{font-size:.75rem;font-weight:650;color:var(--sub);display:block;margin-bottom:.15rem}
+.daystrip input{padding:.35rem .5rem;border:1px solid var(--line);border-radius:5px;background:#fff}
+.daystrip input:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 2px rgba(27,59,99,.12)}
+
 .layout{display:flex;align-items:flex-start;gap:1.5rem;padding:1.25rem;max-width:1500px;margin:0 auto}
-aside{flex:0 0 16rem;position:sticky;top:4.5rem}
+aside{flex:0 0 17rem;position:sticky;top:5rem}
 aside h2{font-size:.75rem;font-weight:650;color:var(--sub);margin:0 0 .5rem}
 .dep{display:block;width:100%;text-align:left;background:none;border:1px solid transparent;
-  padding:.6rem .7rem;border-radius:6px;cursor:pointer;margin-bottom:.2rem}
+  padding:.55rem .7rem;border-radius:6px;cursor:pointer;margin-bottom:.15rem}
 .dep:hover{background:var(--band)}
 .dep[aria-current="true"]{background:var(--band);border-color:var(--line);font-weight:600}
 .dep .n{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem}
-.dep .c{font-size:.8125rem;color:var(--sub);font-variant-numeric:tabular-nums}
-.dep .ck{font-size:.75rem;color:var(--ok);font-weight:600}
-.dep .ck.no{color:var(--idle);font-weight:400}
+.dep .c{font-size:.8125rem;color:var(--sub);font-variant-numeric:tabular-nums;font-weight:400}
+.dep .ck{font-size:.75rem;color:var(--ok)}
+.dep .ck.no{color:var(--idle)}
+.dep .st{font-size:.75rem;color:var(--sub)}
+.addbox{margin-top:.9rem;padding-top:.7rem;border-top:1px solid var(--line);display:flex;gap:.35rem}
+.addbox input{flex:1;min-width:0;padding:.4rem .5rem;border:1px solid var(--line);border-radius:5px}
+.addbox button{background:var(--navy);color:#fff;border:none;padding:.4rem .7rem;border-radius:5px;cursor:pointer}
 
 section{flex:1;min-width:0}
-.tools{display:flex;align-items:center;gap:.5rem;margin-bottom:.9rem;flex-wrap:wrap}
-.tools h2{margin:0;font-size:1.125rem;font-weight:650;flex:1}
-.tools h2 small{font-weight:400;color:var(--sub);font-size:.8125rem;margin-left:.5rem}
+.tools{display:flex;align-items:center;gap:.45rem;margin-bottom:.5rem;flex-wrap:wrap}
+.tools h2{margin:0;font-size:1.125rem;font-weight:650;flex:1 1 100%}
 .tools button{background:#fff;border:1px solid var(--line);padding:.4rem .75rem;border-radius:5px;cursor:pointer;font-size:.875rem}
 .tools button:hover{border-color:var(--navy)}
+.tools button.go{background:var(--navy);color:#fff;border-color:var(--navy)}
 .tools button.danger:hover{border-color:var(--bad);color:var(--bad)}
 
-.warn{margin-bottom:1rem;padding:.75rem 1rem;border-radius:6px;background:#fbeaea;
+.depmeta{display:flex;gap:1rem;margin-bottom:.9rem;flex-wrap:wrap}
+.depmeta div{flex:1 1 14rem}
+.depmeta label{font-size:.75rem;font-weight:650;color:var(--sub);display:block;margin-bottom:.15rem}
+.depmeta input{width:100%;padding:.4rem .5rem;border:1px solid var(--line);border-radius:5px}
+.depmeta input:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 2px rgba(27,59,99,.12)}
+
+.warn{margin-bottom:1rem;padding:.7rem 1rem;border-radius:6px;background:#fbeaea;
   border-left:4px solid var(--bad);color:var(--bad);font-size:.875rem}
+.info{margin-bottom:1rem;padding:.7rem 1rem;border-radius:6px;background:var(--band);
+  border-left:4px solid var(--idle);color:var(--sub);font-size:.875rem}
 
 table{width:100%;border-collapse:collapse}
 th{text-align:left;font-size:.75rem;font-weight:650;color:#fff;background:var(--navy);
   padding:.5rem .6rem;white-space:nowrap}
-td{padding:.25rem .6rem;border-bottom:1px solid var(--line);vertical-align:middle}
+td{padding:.2rem .6rem;border-bottom:1px solid var(--line)}
 tr.sh td{background:var(--band);font-weight:650;font-size:.8125rem;color:var(--navy)}
 tr.sh .cnt{font-weight:500;color:var(--sub)}
-.ea{font-weight:650;font-variant-numeric:tabular-nums;letter-spacing:.02em;white-space:nowrap}
-.swatch{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:.45rem;vertical-align:baseline}
+.ea{font-weight:650;font-variant-numeric:tabular-nums;white-space:nowrap}
+.swatch{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:.45rem}
 td input{width:100%;padding:.35rem .45rem;border:1px solid transparent;border-radius:4px;background:transparent}
 td input:hover{border-color:var(--line)}
 td input:focus{outline:none;border-color:var(--navy);background:#fff;box-shadow:0 0 0 2px rgba(27,59,99,.12)}
@@ -71,14 +81,27 @@ td input:focus{outline:none;border-color:var(--navy);background:#fff;box-shadow:
 .del:hover{color:var(--bad);background:var(--band)}
 tr.add td{background:var(--band)}
 tr.add input{background:#fff;border-color:var(--line)}
-tr.add button{background:var(--navy);color:#fff;border:none;padding:.4rem .85rem;border-radius:5px;cursor:pointer}
+tr.add button{background:var(--navy);color:#fff;border:none;padding:.35rem .8rem;border-radius:5px;cursor:pointer}
 
-.note{margin:1.5rem 0;padding:1rem 1.15rem;border-radius:8px;background:var(--band);
-  border-left:4px solid var(--idle);color:var(--sub)}
-.note.bad{border-left-color:var(--bad);color:var(--bad)}
+dialog{border:none;border-radius:10px;padding:0;max-width:44rem;width:92vw;box-shadow:0 10px 40px rgba(0,0,0,.25)}
+dialog::backdrop{background:rgba(10,20,35,.45)}
+.dlg-h{background:var(--navy);color:#fff;padding:.8rem 1.15rem;font-weight:650}
+.dlg-b{padding:1.15rem;max-height:70vh;overflow:auto}
+.dlg-f{padding:.8rem 1.15rem;border-top:1px solid var(--line);display:flex;gap:.5rem;justify-content:flex-end}
+.dlg-f button{padding:.5rem 1rem;border-radius:5px;border:1px solid var(--line);background:#fff;cursor:pointer}
+.dlg-f button.go{background:var(--navy);color:#fff;border-color:var(--navy)}
+.fld{margin-bottom:1.1rem}
+.fld label{display:block;font-size:.75rem;font-weight:650;color:var(--sub);margin-bottom:.25rem}
+.fld .hint{font-size:.8125rem;color:var(--sub);margin-bottom:.35rem}
+textarea{width:100%;min-height:8rem;padding:.55rem .65rem;border:1px solid var(--line);
+  border-radius:6px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.875rem;line-height:1.6}
+textarea:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 2px rgba(27,59,99,.12)}
+pre{white-space:pre-wrap;background:var(--band);padding:1rem;border-radius:6px;
+  font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8125rem;margin:0}
+
 .toast{position:fixed;right:1.25rem;bottom:1.25rem;background:var(--navy);color:#fff;
-  padding:.7rem 1.1rem;border-radius:6px;font-size:.875rem;z-index:50;
-  opacity:0;pointer-events:none;transition:opacity .18s;max-width:26rem}
+  padding:.7rem 1.1rem;border-radius:6px;font-size:.875rem;z-index:60;
+  opacity:0;pointer-events:none;transition:opacity .18s;max-width:28rem}
 .toast.show{opacity:1}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -87,14 +110,65 @@ tr.add button{background:var(--navy);color:#fff;border:none;padding:.4rem .85rem
 
 <header>
   <h1 id="title">Όρχοι — Διαχείριση</h1>
-  <div class="sub" id="daybar"></div>
-  <div class="right"><span id="sync"></span><button id="key">Κωδικός</button></div>
+  <div class="sub" id="sub"></div>
+  <div class="right">
+    <span id="sync"></span>
+    <button id="btnLists">Λίστες</button>
+    <button id="btnKey">Κωδικός</button>
+  </div>
 </header>
 
+<div class="daystrip">
+  <div><label for="fDay">Ημερομηνία</label><input id="fDay" type="text" placeholder="9/9/2026" size="12"></div>
+  <div><label for="fHours">Ωράριο</label><input id="fHours" type="text" placeholder="21:00-05:30" size="14"></div>
+  <div style="flex:1"><label for="fTitle">Τίτλος</label><input id="fTitle" type="text" style="width:100%"></div>
+</div>
+
 <div class="layout">
-  <aside><h2>Όρχοι</h2><div id="deps"></div></aside>
+  <aside>
+    <h2>Όρχοι</h2>
+    <div id="deps"></div>
+    <div class="addbox">
+      <input id="newDepot" type="text" placeholder="νέος όρχος">
+      <button id="btnAddDepot">+</button>
+    </div>
+  </aside>
   <section id="body"></section>
 </div>
+
+<dialog id="dlgLists">
+  <div class="dlg-h">Λίστες</div>
+  <div class="dlg-b">
+    <div class="fld">
+      <label for="taShifts">Αλλαγές</label>
+      <div class="hint">Με τη σειρά που θέλεις να εμφανίζονται. Μία ανά γραμμή.</div>
+      <textarea id="taShifts" style="min-height:5rem"></textarea>
+    </div>
+    <div class="fld">
+      <label for="taStatuses">Καταστάσεις</label>
+      <div class="hint">Μία ανά γραμμή. Για χρώμα, βάλε κάθετο και κωδικό: ΣΥΝΕΡΓΕΙΟ | #b06a00</div>
+      <textarea id="taStatuses"></textarea>
+    </div>
+    <div class="fld">
+      <label for="taDrivers">Οδηγοί</label>
+      <div class="hint">Επώνυμα, ένα ανά γραμμή. Εμφανίζονται ως προτάσεις.</div>
+      <textarea id="taDrivers"></textarea>
+    </div>
+  </div>
+  <div class="dlg-f">
+    <button id="listsCancel">Ακύρωση</button>
+    <button class="go" id="listsSave">Αποθήκευση</button>
+  </div>
+</dialog>
+
+<dialog id="dlgMail">
+  <div class="dlg-h" id="mailHead">Προεπισκόπηση</div>
+  <div class="dlg-b"><pre id="mailBody"></pre></div>
+  <div class="dlg-f">
+    <button id="mailCancel">Κλείσιμο</button>
+    <button class="go" id="mailSend">Αποστολή</button>
+  </div>
+</dialog>
 
 <div class="toast" id="toast"></div>
 
@@ -104,6 +178,7 @@ const API_URL = 'https://script.google.com/macros/s/AKfycbw94CQU8JZr-v4m2ys76QVo
 let DATA = null;
 let depot = localStorage.getItem('orxoi.admin.depot') || '';
 let key   = localStorage.getItem('orxoi.admin.key')   || '';
+let mailTarget = null;
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -135,7 +210,7 @@ function toast(m, bad) {
   t.textContent = m;
   t.style.background = bad ? '#b02525' : '';
   t.classList.add('show');
-  clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('show'), 2800);
+  clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('show'), 3200);
 }
 
 async function askKey() {
@@ -158,9 +233,36 @@ const ensureKey = async () => key ? true : askKey();
 const dep = () => DATA.depots.find(d => d.key === depot);
 const colorOf = s => (s && DATA.lists.colors[s]) || (s ? '#8b98a6' : '#1a7a45');
 
+/* ---------- ρυθμίσεις ημέρας ---------- */
+
+function bindSetting(el, name) {
+  let before = '';
+  el.onfocus = () => { before = el.value; };
+  el.onblur = async () => {
+    if (el.value === before) return;
+    if (!(await ensureKey())) { el.value = before; return; }
+    try {
+      await send({ action: 'setSetting', name: name, value: el.value.trim() });
+      before = el.value;
+      toast('Αποθηκεύτηκε');
+      load();
+    } catch (e) { el.value = before; toast(e.message, true); }
+  };
+  el.onkeydown = e => { if (e.key === 'Enter') el.blur(); if (e.key === 'Escape') { el.value = before; el.blur(); } };
+}
+bindSetting($('fDay'), 'ΗΜΕΡΟΜΗΝΙΑ');
+bindSetting($('fHours'), 'ΩΡΑΡΙΟ');
+bindSetting($('fTitle'), 'ΤΙΤΛΟΣ');
+
+/* ---------- εμφάνιση ---------- */
+
 function render() {
+  const act = document.activeElement;
   $('title').textContent = (DATA.title || 'Όρχοι') + ' — Διαχείριση';
-  $('daybar').textContent = [DATA.day, DATA.hours].filter(Boolean).join(' · ');
+  $('sub').textContent = [DATA.day, DATA.hours].filter(Boolean).join(' · ');
+  if (act !== $('fDay')) $('fDay').value = DATA.day;
+  if (act !== $('fHours')) $('fHours').value = DATA.hours;
+  if (act !== $('fTitle')) $('fTitle').value = DATA.title;
 
   const deps = $('deps'); deps.innerHTML = '';
   DATA.depots.forEach(d => {
@@ -168,10 +270,10 @@ function render() {
     b.className = 'dep';
     b.setAttribute('aria-current', d.key === depot);
     b.innerHTML =
-      '<div class="n"><span>' + esc(d.title) + '</span>' +
-      '<span class="c">' + d.active + '/' + d.total + '</span></div>' +
+      '<div class="n"><span>' + esc(d.title) + '</span><span class="c">' + d.active + '/' + d.total + '</span></div>' +
       '<div class="ck' + (d.checkedAt ? '' : ' no') + '">' +
-      (d.checkedAt ? '✓ ' + esc(d.checkedBy || '') + ' ' + esc(d.checkedAt) : 'χωρίς έλεγχο') + '</div>';
+      (d.checkedAt ? '✓ έλεγχος ' + esc(d.checkedBy || '') + ' ' + esc(d.checkedAt) : 'χωρίς έλεγχο') + '</div>' +
+      (d.sent ? '<div class="st">✉ στάλθηκε ' + esc(d.sent) + '</div>' : '');
     b.onclick = () => { depot = d.key; localStorage.setItem('orxoi.admin.depot', depot); render(); };
     deps.appendChild(b);
   });
@@ -183,48 +285,55 @@ function render() {
   if (dup.length) {
     const w = document.createElement('div');
     w.className = 'warn';
-    w.innerHTML = 'Το ίδιο Ε.Α. βρέθηκε σε πάνω από έναν όρχο: ' +
+    w.innerHTML = 'Το ίδιο Ε.Α. σε πάνω από έναν όρχο: ' +
       dup.map(ea => '<b>' + esc(ea) + '</b> (' + DATA.duplicates[ea].map(esc).join(', ') + ')').join(' · ');
     body.appendChild(w);
   }
 
-  if (!D) { body.insertAdjacentHTML('beforeend', '<div class="note">Δεν υπάρχει φύλλο όρχου. Γράψε τους όρχους στο φύλλο _ΟΡΧΟΙ και πάτα «Δημιουργία όρχων».</div>'); addSync(body); return; }
+  if (DATA.missing && DATA.missing.length) {
+    const w = document.createElement('div');
+    w.className = 'info';
+    w.textContent = 'Όρχοι χωρίς φύλλο: ' + DATA.missing.join(', ') + '. Πάτα «Δημιουργία φύλλων».';
+    body.appendChild(w);
+  }
+
+  if (!D) {
+    body.insertAdjacentHTML('beforeend', '<div class="info">Δεν υπάρχει όρχος. Πρόσθεσε έναν από το πλαϊνό πλαίσιο.</div>');
+    return;
+  }
 
   const tools = document.createElement('div');
   tools.className = 'tools';
-  tools.innerHTML = '<h2>' + esc(D.title) +
-    (D.officer ? '<small>Αξ.Υπ. ' + esc(D.officer) + '</small>' : '') +
-    '<small>' + D.active + ' ενεργά από ' + D.total + '</small></h2>';
+  tools.innerHTML = '<h2>' + esc(D.title) + '</h2>';
 
-  const bSync = document.createElement('button');
-  bSync.textContent = 'Δημιουργία όρχων από το _ΟΡΧΟΙ';
-  bSync.onclick = syncDepots;
-  tools.appendChild(bSync);
-
-  const b1 = document.createElement('button');
-  b1.className = 'danger'; b1.textContent = 'Καθαρισμός ημέρας — ' + D.title;
-  b1.onclick = () => clearDay(D.key, D.title);
-  tools.appendChild(b1);
-
-  const b2 = document.createElement('button');
-  b2.className = 'danger'; b2.textContent = 'Όλων';
-  b2.onclick = () => clearDay('*', 'όλους τους όρχους');
-  tools.appendChild(b2);
-
+  const mk = (label, cls, fn) => {
+    const b = document.createElement('button');
+    if (cls) b.className = cls;
+    b.textContent = label; b.onclick = fn;
+    tools.appendChild(b);
+  };
+  mk('Αποστολή πλάνου', 'go', () => openMail(D.key));
+  mk('Σε όλους', '', () => openMail('*'));
+  mk('Δημιουργία φύλλων', '', syncDepots);
+  mk('Καθαρισμός ημέρας', 'danger', () => clearDay(D.key, D.title));
+  mk('Καθαρισμός όλων', 'danger', () => clearDay('*', 'όλους τους όρχους'));
   body.appendChild(tools);
+
+  const meta = document.createElement('div');
+  meta.className = 'depmeta';
+  meta.appendChild(metaField(D, 'title', 'Όνομα όρχου'));
+  meta.appendChild(metaField(D, 'officer', 'Αξιωματικός υπηρεσίας'));
+  meta.appendChild(metaField(D, 'email', 'Email αξιωματικού'));
+  body.appendChild(meta);
 
   const table = document.createElement('table');
   table.innerHTML = '<thead><tr>' +
-    '<th style="width:5.5rem">Ε.Α.</th>' +
-    '<th style="width:16%">Οδηγός</th>' +
-    '<th style="width:20%">Κατάσταση</th>' +
-    '<th style="width:13%">Θέση</th>' +
-    '<th>Παρατηρήσεις</th>' +
-    '<th style="width:9rem">Δήλωσε</th>' +
-    '<th style="width:2.2rem"></th></tr></thead>';
+    '<th style="width:5.5rem">Ε.Α.</th><th style="width:16%">Οδηγός</th>' +
+    '<th style="width:19%">Κατάσταση</th><th style="width:13%">Θέση</th>' +
+    '<th>Παρατηρήσεις</th><th style="width:9rem">Δήλωσε</th><th style="width:2.2rem"></th></tr></thead>';
 
   const tb = document.createElement('tbody');
-  const order = DATA.lists.shifts.length ? DATA.lists.shifts : [];
+  const order = DATA.lists.shifts;
   const groups = [];
   D.rows.forEach(r => {
     const n = r.shift || '—';
@@ -253,9 +362,31 @@ function render() {
   datalists();
 }
 
+function metaField(D, field, label) {
+  const w = document.createElement('div');
+  const l = document.createElement('label'); l.textContent = label;
+  const i = document.createElement('input');
+  i.type = 'text'; i.value = D[field] || '';
+  if (field === 'email') i.placeholder = 'ονομα@astynomia.gr';
+
+  let before = i.value;
+  i.onblur = async () => {
+    const v = i.value.trim();
+    if (v === before) return;
+    if (!(await ensureKey())) { i.value = before; return; }
+    try {
+      await send({ action: 'setDepot', depot: D.key, field: field, value: v });
+      before = v; toast('Αποθηκεύτηκε'); load();
+    } catch (e) { i.value = before; toast(e.message, true); }
+  };
+  i.onkeydown = e => { if (e.key === 'Enter') i.blur(); if (e.key === 'Escape') { i.value = before; i.blur(); } };
+
+  w.appendChild(l); w.appendChild(i);
+  return w;
+}
+
 function rowFor(r, D) {
   const tr = document.createElement('tr');
-
   const ea = document.createElement('td');
   ea.className = 'ea';
   ea.innerHTML = '<span class="swatch" style="background:' + colorOf(r.status) + '"></span>' + esc(r.ea);
@@ -263,7 +394,7 @@ function rowFor(r, D) {
 
   tr.appendChild(cell(r, 'driver', 'dl-drivers'));
   tr.appendChild(cell(r, 'status', 'dl-status'));
-  tr.appendChild(cell(r, 'place', null));
+  tr.appendChild(cell(r, 'place', 'dl-depots'));
   tr.appendChild(cell(r, 'notes', null));
 
   const who = document.createElement('td');
@@ -277,15 +408,13 @@ function rowFor(r, D) {
   b.onclick = () => removeVehicle(r, D);
   td.appendChild(b);
   tr.appendChild(td);
-
   return tr;
 }
 
 function cell(r, field, list) {
   const td = document.createElement('td');
   const i = document.createElement('input');
-  i.type = 'text';
-  i.value = r[field] || '';
+  i.type = 'text'; i.value = r[field] || '';
   if (list) i.setAttribute('list', list);
 
   let before = i.value;
@@ -295,15 +424,10 @@ function cell(r, field, list) {
     if (!(await ensureKey())) { i.value = before; return; }
     try {
       await send({ action: 'setField', depot: depot, row: r.row, ea: r.ea, field: field, value: v, by: 'ΔΙΑΧ.' });
-      r[field] = v; before = v;
-      toast(r.ea + ' — ενημερώθηκε');
-      load();
+      r[field] = v; before = v; toast(r.ea + ' — ενημερώθηκε'); load();
     } catch (e) { i.value = before; toast(e.message, true); }
   };
-  i.onkeydown = e => {
-    if (e.key === 'Enter') i.blur();
-    if (e.key === 'Escape') { i.value = before; i.blur(); }
-  };
+  i.onkeydown = e => { if (e.key === 'Enter') i.blur(); if (e.key === 'Escape') { i.value = before; i.blur(); } };
 
   td.appendChild(i);
   return td;
@@ -311,14 +435,15 @@ function cell(r, field, list) {
 
 function datalists() {
   const make = (id, items) => {
-    let dl = document.getElementById(id);
-    if (dl) dl.remove();
-    dl = document.createElement('datalist'); dl.id = id;
+    const old = document.getElementById(id);
+    if (old) old.remove();
+    const dl = document.createElement('datalist'); dl.id = id;
     items.forEach(v => { const o = document.createElement('option'); o.value = v; dl.appendChild(o); });
     document.body.appendChild(dl);
   };
   make('dl-drivers', DATA.lists.drivers);
   make('dl-status', DATA.lists.statuses);
+  make('dl-depots', DATA.depots.map(d => d.title));
 }
 
 function addRow(D, lastShift) {
@@ -328,6 +453,7 @@ function addRow(D, lastShift) {
   const t1 = document.createElement('td');
   const s = document.createElement('input');
   s.type = 'text'; s.placeholder = 'αλλαγή'; s.value = lastShift === '—' ? '' : lastShift;
+  s.setAttribute('list', 'dl-shifts');
   t1.appendChild(s);
 
   const t2 = document.createElement('td');
@@ -339,35 +465,49 @@ function addRow(D, lastShift) {
   t3.colSpan = 5;
   const b = document.createElement('button');
   b.textContent = 'Προσθήκη οχήματος';
-  b.onclick = async () => {
+  const go = async () => {
     if (!e.value.trim()) { toast('Γράψε το Ε.Α.', true); return; }
     if (!(await ensureKey())) return;
     try {
       await send({ action: 'addVehicle', depot: D.key, shift: s.value.trim(), ea: e.value.trim() });
-      e.value = ''; toast('Προστέθηκε'); load();
+      e.value = ''; toast('Προστέθηκε'); await load();
     } catch (err) { toast(err.message, true); }
   };
+  b.onclick = go;
+  e.onkeydown = ev => { if (ev.key === 'Enter') go(); };
   t3.appendChild(b);
 
   tr.appendChild(t1); tr.appendChild(t2); tr.appendChild(t3);
+
+  const old = document.getElementById('dl-shifts');
+  if (old) old.remove();
+  const dl = document.createElement('datalist'); dl.id = 'dl-shifts';
+  DATA.lists.shifts.forEach(v => { const o = document.createElement('option'); o.value = v; dl.appendChild(o); });
+  document.body.appendChild(dl);
+
   return tr;
 }
 
-function addSync(body) {
-  const b = document.createElement('button');
-  b.textContent = 'Δημιουργία όρχων από το _ΟΡΧΟΙ';
-  b.onclick = syncDepots;
-  body.appendChild(b);
-}
+/* ---------- ενέργειες ---------- */
 
 async function syncDepots() {
   if (!(await ensureKey())) return;
   try {
     const r = await send({ action: 'syncDepots' });
-    toast(r.created.length ? 'Δημιουργήθηκαν: ' + r.created.join(', ') : 'Δεν έλειπε κανένας όρχος');
+    toast(r.created.length ? 'Δημιουργήθηκαν: ' + r.created.join(', ') : 'Δεν έλειπε κανένα φύλλο');
     load();
   } catch (e) { toast(e.message, true); }
 }
+
+$('btnAddDepot').onclick = async () => {
+  const n = $('newDepot').value.trim();
+  if (!n) { toast('Γράψε όνομα όρχου', true); return; }
+  if (!(await ensureKey())) return;
+  try {
+    await send({ action: 'addDepot', name: n, title: n });
+    $('newDepot').value = ''; toast('Ο όρχος προστέθηκε'); load();
+  } catch (e) { toast(e.message, true); }
+};
 
 async function removeVehicle(r, D) {
   if (!confirm('Διαγραφή του ' + r.ea + ' από τον όρχο ' + D.title + ';')) return;
@@ -387,17 +527,93 @@ async function clearDay(target, label) {
   } catch (e) { toast(e.message, true); }
 }
 
-$('key').onclick = askKey;
+/* ---------- email ---------- */
+
+async function openMail(target) {
+  if (!(await ensureKey())) return;
+  mailTarget = target;
+
+  if (target === '*') {
+    const list = DATA.depots.filter(d => d.email);
+    if (!list.length) { toast('Κανένας όρχος δεν έχει email', true); return; }
+    $('mailHead').textContent = 'Αποστολή σε ' + list.length + ' όρχους';
+    $('mailBody').textContent = list.map(d => '• ' + d.title + '  →  ' + d.email).join('\n') +
+      '\n\nΘα σταλεί σε καθέναν το πλάνο του δικού του όρχου.';
+    $('dlgMail').showModal();
+    return;
+  }
+
+  try {
+    const r = await send({ action: 'previewPlan', depot: target });
+    const D = DATA.depots.find(x => x.key === target);
+    $('mailHead').textContent = 'Προς: ' + (r.to || '— λείπει email —');
+    $('mailBody').textContent = r.text;
+    $('dlgMail').showModal();
+  } catch (e) { toast(e.message, true); }
+}
+
+$('mailCancel').onclick = () => $('dlgMail').close();
+$('mailSend').onclick = async () => {
+  const b = $('mailSend');
+  b.disabled = true; b.textContent = 'Αποστολή…';
+  try {
+    const r = await send({ action: 'sendPlan', depot: mailTarget });
+    $('dlgMail').close();
+    let m = r.sent.length ? 'Στάλθηκε: ' + r.sent.join(', ') : 'Δεν στάλθηκε τίποτα';
+    if (r.failed.length) m += ' — Απέτυχαν: ' + r.failed.join(', ');
+    toast(m, r.failed.length > 0);
+    load();
+  } catch (e) { toast(e.message, true); }
+  b.disabled = false; b.textContent = 'Αποστολή';
+};
+
+/* ---------- λίστες ---------- */
+
+$('btnLists').onclick = async () => {
+  if (!(await ensureKey())) return;
+  $('taShifts').value = DATA.lists.shifts.join('\n');
+  $('taDrivers').value = DATA.lists.drivers.join('\n');
+  $('taStatuses').value = DATA.lists.statuses
+    .map(s => DATA.lists.colors[s] ? s + ' | ' + DATA.lists.colors[s] : s).join('\n');
+  $('dlgLists').showModal();
+};
+$('listsCancel').onclick = () => $('dlgLists').close();
+
+$('listsSave').onclick = async () => {
+  const lines = t => t.split('\n').map(x => x.trim()).filter(Boolean);
+  const statuses = [], colors = {};
+  lines($('taStatuses').value).forEach(l => {
+    const i = l.indexOf('|');
+    const name = (i < 0 ? l : l.slice(0, i)).trim();
+    if (!name) return;
+    statuses.push(name);
+    if (i >= 0) colors[name] = l.slice(i + 1).trim();
+  });
+  try {
+    await send({
+      action: 'saveLists',
+      statuses: statuses, colors: colors,
+      drivers: lines($('taDrivers').value),
+      shifts: lines($('taShifts').value)
+    });
+    $('dlgLists').close();
+    toast('Οι λίστες αποθηκεύτηκαν');
+    load();
+  } catch (e) { toast(e.message, true); }
+};
+
+$('btnKey').onclick = askKey;
 
 (async function () {
   if (API_URL.indexOf('http') !== 0) {
-    $('body').innerHTML = '<div class="note bad">Λείπει η διεύθυνση του API. Συμπλήρωσε το API_URL στο admin.html.</div>';
+    $('body').innerHTML = '<div class="warn">Λείπει η διεύθυνση του API. Συμπλήρωσε το API_URL στο admin.html.</div>';
     return;
   }
   try { await load(); }
-  catch (e) { $('body').innerHTML = '<div class="note bad">Δεν φόρτωσαν τα δεδομένα.<br>' + esc(e.message) + '</div>'; }
+  catch (e) { $('body').innerHTML = '<div class="warn">Δεν φόρτωσαν τα δεδομένα.<br>' + esc(e.message) + '</div>'; }
   setInterval(() => {
-    if (document.activeElement && document.activeElement.tagName === 'INPUT') return;
+    if (document.activeElement && ['INPUT', 'TEXTAREA'].indexOf(document.activeElement.tagName) >= 0) return;
+    if (document.querySelector('dialog[open]')) return;
     load().catch(() => {});
   }, 15000);
 })();
