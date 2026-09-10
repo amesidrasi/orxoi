@@ -9,87 +9,83 @@
 <title>Όρχοι</title>
 <style>
 :root{
-  --navy:#1b3b63;
-  --navy-d:#142c4b;
-  --band:#eaeff5;
-  --paper:#ffffff;
-  --line:#ccd7e2;
-  --ink:#16212e;
-  --sub:#5f7183;
-  --ok:#1a7a45;
-  --bad:#b02525;
-  --idle:#8b98a6;
+  --navy:#1b3b63; --band:#eaeff5; --paper:#fff; --line:#ccd7e2;
+  --ink:#16212e; --sub:#5f7183; --ok:#1a7a45; --bad:#b02525; --idle:#8b98a6;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{-webkit-text-size-adjust:100%}
-body{
-  margin:0;background:var(--paper);color:var(--ink);
+body{margin:0;background:var(--paper);color:var(--ink);
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-  font-size:16px;line-height:1.45;padding-bottom:env(safe-area-inset-bottom);
-}
+  font-size:16px;line-height:1.4;padding-bottom:env(safe-area-inset-bottom)}
 button,input{font:inherit;color:inherit}
 
 header{position:sticky;top:0;z-index:20;background:var(--navy);color:#fff;
-  padding:calc(env(safe-area-inset-top) + .7rem) .9rem 0;text-align:center}
-header h1{margin:0;font-size:1rem;font-weight:650}
-header .sub{font-size:.8125rem;color:#b9c7d8;margin-top:.1rem}
-.tabs{display:flex;gap:.4rem;overflow-x:auto;padding:.75rem 0 .6rem;scrollbar-width:none}
+  padding:calc(env(safe-area-inset-top) + .6rem) .8rem 0;text-align:center}
+header h1{margin:0;font-size:.9375rem;font-weight:650}
+header .sub{font-size:.75rem;color:#b9c7d8;margin-top:.05rem}
+.tabs{display:flex;gap:.35rem;overflow-x:auto;padding:.6rem 0 .5rem;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
-.tab{flex:0 0 auto;padding:.45rem .85rem;border-radius:6px;border:1px solid #3d5a80;
-  background:transparent;color:#cddaea;font-size:.875rem;font-weight:550;white-space:nowrap;cursor:pointer}
+.tab{flex:0 0 auto;padding:.4rem .75rem;border-radius:5px;border:1px solid #3d5a80;
+  background:transparent;color:#cddaea;font-size:.8125rem;font-weight:550;white-space:nowrap;cursor:pointer}
 .tab[aria-selected="true"]{background:#fff;color:var(--navy);border-color:#fff}
-.tab .mark{color:#7fd6a3}
+.tab .m{color:#7fd6a3}
 
-.band{background:var(--band);border-bottom:1px solid var(--line);padding:.6rem .9rem;
-  font-size:.875rem;color:var(--sub);display:flex;justify-content:space-between;gap:1rem}
-.band b{color:var(--navy);font-weight:600}
-.who{background:none;border:none;color:var(--navy);text-decoration:underline;text-underline-offset:3px;
-  padding:0;cursor:pointer;font-size:.875rem}
+.strip{background:var(--band);border-bottom:1px solid var(--line);display:flex;
+  gap:.3rem;overflow-x:auto;padding:.5rem .8rem;scrollbar-width:none}
+.strip::-webkit-scrollbar{display:none}
+.sh{flex:0 0 auto;padding:.35rem .8rem;border-radius:999px;border:1px solid var(--line);
+  background:#fff;font-size:.875rem;font-weight:550;white-space:nowrap;cursor:pointer}
+.sh[aria-selected="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.sh small{opacity:.7;font-weight:400}
 
-main{padding:0 .9rem 6rem}
-.shift{margin-top:1.4rem}
-.shift h2{margin:0 0 .4rem;font-size:.8125rem;font-weight:650;color:var(--navy);
-  padding-bottom:.3rem;border-bottom:2px solid var(--navy);display:flex;justify-content:space-between}
-.shift h2 span{font-weight:500;color:var(--sub)}
+.count{padding:.5rem .8rem;font-size:.8125rem;color:var(--sub);display:flex;
+  justify-content:space-between;gap:1rem;border-bottom:1px solid var(--line)}
+.count b{color:var(--navy)}
+.who{background:none;border:none;color:var(--navy);text-decoration:underline;
+  text-underline-offset:3px;padding:0;cursor:pointer;font-size:.8125rem}
 
+main{padding:0 .8rem 6.5rem}
 .veh{border-bottom:1px solid var(--line)}
-.head{display:flex;align-items:center;gap:.7rem;width:100%;min-height:54px;
-  background:none;border:none;padding:.65rem 0;text-align:left;cursor:pointer}
+.head{display:flex;align-items:center;gap:.6rem;width:100%;min-height:52px;
+  background:none;border:none;padding:.55rem 0;text-align:left;cursor:pointer}
 .bar{width:4px;align-self:stretch;border-radius:2px;background:var(--ok);flex:0 0 auto}
-.ea{font-size:1.0625rem;font-weight:650;font-variant-numeric:tabular-nums;letter-spacing:.02em;min-width:4.3rem}
+.ea{font-size:1.0625rem;font-weight:650;font-variant-numeric:tabular-nums;min-width:4.2rem}
 .meta{flex:1;min-width:0}
-.line1{font-size:.9375rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.line1 .none{color:var(--idle)}
-.line2{font-size:.8125rem;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.l1{font-size:.9375rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.l1 .none{color:var(--idle)}
+.l2{font-size:.8125rem;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sig{width:7px;height:7px;border-radius:50%;background:var(--navy);opacity:.5;flex:0 0 auto}
 
 .panel{display:none}
-.veh.open{background:var(--band);margin:0 -.9rem;padding:0 .9rem}
-.veh.open .panel{display:block;padding:.25rem 0 1.1rem}
-.choices{display:flex;flex-wrap:wrap;gap:.45rem;margin:.35rem 0 .2rem}
-.choice{padding:.55rem .85rem;border-radius:6px;border:1px solid var(--line);background:#fff;
+.veh.open{background:var(--band);margin:0 -.8rem;padding:0 .8rem}
+.veh.open .panel{display:block;padding:.1rem 0 1rem}
+.choices{display:flex;flex-wrap:wrap;gap:.4rem;margin:.3rem 0}
+.choice{padding:.55rem .8rem;border-radius:6px;border:1px solid var(--line);background:#fff;
   font-size:.9375rem;font-weight:550;cursor:pointer;min-height:44px}
 .choice[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
-.choice.free{flex:1 1 100%;background:var(--ok);border-color:var(--ok);color:#fff}
-label{display:block;font-size:.75rem;font-weight:600;color:var(--sub);margin:.85rem 0 .3rem}
+.choice.free{flex:1 1 100%;border-color:var(--ok);color:var(--ok)}
+.choice.free[aria-pressed="true"]{background:var(--ok);border-color:var(--ok);color:#fff}
+label{display:block;font-size:.7rem;font-weight:650;color:var(--sub);margin:.75rem 0 .25rem}
 input[type=text]{width:100%;padding:.6rem .7rem;border:1px solid var(--line);border-radius:6px;background:#fff}
 input[type=text]:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 2px rgba(27,59,99,.15)}
-.stamp{font-size:.8125rem;color:var(--sub);margin-top:.7rem}
-.save{width:100%;margin-top:.9rem;padding:.8rem;background:var(--navy);color:#fff;
+.stamp{font-size:.8125rem;color:var(--sub);margin-top:.6rem}
+.save{width:100%;margin-top:.8rem;padding:.8rem;background:var(--navy);color:#fff;
   border:none;border-radius:6px;font-weight:600;cursor:pointer}
+.save[disabled]{opacity:.5}
 
 .checkbar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#fff;
-  border-top:1px solid var(--line);padding:.7rem .9rem calc(.7rem + env(safe-area-inset-bottom))}
-.checkbar button{width:100%;padding:.85rem;border:none;border-radius:6px;
-  background:var(--ok);color:#fff;font-weight:650;font-size:1rem;cursor:pointer}
+  border-top:1px solid var(--line);padding:.6rem .8rem calc(.6rem + env(safe-area-inset-bottom))}
+.checkbar button{width:100%;padding:.8rem;border:none;border-radius:6px;
+  background:var(--ok);color:#fff;font-weight:650;font-size:.9375rem;cursor:pointer}
 .checkbar button.done{background:#fff;color:var(--ok);border:1px solid var(--ok)}
-.checkbar .info{text-align:center;font-size:.8125rem;color:var(--sub);margin-bottom:.5rem}
+.checkbar .info{text-align:center;font-size:.78rem;color:var(--sub);margin-bottom:.4rem}
 
-.note{margin:1.5rem 0;padding:.9rem 1rem;border-radius:8px;background:var(--band);
+.note{margin:1.4rem 0;padding:.85rem 1rem;border-radius:6px;background:var(--band);
   border-left:4px solid var(--idle);color:var(--sub)}
 .note.bad{border-left-color:var(--bad);color:var(--bad)}
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:5.5rem;background:var(--navy);
-  color:#fff;padding:.7rem 1.1rem;border-radius:6px;font-size:.875rem;z-index:60;
-  opacity:0;pointer-events:none;transition:opacity .18s;max-width:88vw;text-align:center}
+  color:#fff;padding:.6rem 1rem;border-radius:6px;font-size:.85rem;z-index:60;
+  opacity:0;pointer-events:none;transition:opacity .16s;max-width:88vw;text-align:center}
 .toast.show{opacity:1}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -98,14 +94,12 @@ input[type=text]:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 2p
 
 <header>
   <h1 id="title">Όρχοι</h1>
-  <div class="sub" id="daybar"></div>
+  <div class="sub" id="sub"></div>
   <div class="tabs" id="tabs" role="tablist"></div>
 </header>
 
-<div class="band">
-  <span id="prog">Φόρτωση…</span>
-  <button class="who" id="who">—</button>
-</div>
+<div class="strip" id="strip"></div>
+<div class="count"><span id="cnt">Φόρτωση…</span><button class="who" id="who">—</button></div>
 
 <main id="main"></main>
 <div class="checkbar" id="checkbar" hidden></div>
@@ -116,36 +110,46 @@ const API_URL = 'https://script.google.com/macros/s/AKfycbw94CQU8JZr-v4m2ys76QVo
 
 let DATA = null;
 let depot = localStorage.getItem('orxoi.depot') || '';
+let shift = localStorage.getItem('orxoi.shift') || '';
 let me    = localStorage.getItem('orxoi.name')  || '';
 let open  = null;
+let busy  = 0;
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const isStatus = v => v && DATA.lists.statuses.indexOf(v) >= 0;
+const colorOf = v => isStatus(v) ? (DATA.lists.colors[v] || '#8b98a6') : '#1a7a45';
 
 async function load() {
-  const r = await fetch(API_URL + '?t=' + Date.now());
+  const q = depot ? '&depot=' + encodeURIComponent(depot) : '';
+  const r = await fetch(API_URL + '?t=' + Date.now() + q);
   const d = await r.json();
   if (!d.ok) throw new Error(d.error);
   DATA = d;
-  if (!depot || !d.depots.some(x => x.key === depot)) depot = d.depots.length ? d.depots[0].key : '';
+  depot = d.current || '';
   render();
 }
 
 async function send(p) {
-  const r = await fetch(API_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-    body: JSON.stringify(p)
-  });
-  const d = await r.json();
-  if (!d.ok) throw new Error(d.error);
-  return d;
+  busy++;
+  try {
+    const r = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(p)
+    });
+    const d = await r.json();
+    if (!d.ok) throw new Error(d.error);
+    return d;
+  } finally { busy--; }
 }
 
-function toast(m) {
+function toast(m, bad) {
   const t = $('toast');
-  t.textContent = m; t.classList.add('show');
-  clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('show'), 2200);
+  t.textContent = m;
+  t.style.background = bad ? '#b02525' : '';
+  t.classList.add('show');
+  clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('show'), bad ? 4000 : 1800);
 }
 
 function askName(force) {
@@ -158,11 +162,36 @@ function askName(force) {
 }
 
 const dep = () => DATA.depots.find(d => d.key === depot);
-const colorOf = s => (s && DATA.lists.colors[s]) || (s ? '#8b98a6' : '#1a7a45');
+
+function recount() {
+  const D = dep();
+  if (!D || !D.rows) return;
+  D.total = D.rows.length; D.active = 0; D.byShift = {};
+  D.rows.forEach(r => {
+    const s = r.shift || '—';
+    D.byShift[s] = D.byShift[s] || { total: 0, active: 0 };
+    D.byShift[s].total++;
+    if (!isStatus(r.load)) { D.active++; D.byShift[s].active++; }
+  });
+}
+
+function shiftNames(D) {
+  const found = [];
+  (D.rows || []).forEach(r => {
+    const n = r.shift || '—';
+    if (found.indexOf(n) < 0) found.push(n);
+  });
+  const order = DATA.lists.shifts;
+  if (order.length) found.sort((a, b) => {
+    const i = order.indexOf(a), j = order.indexOf(b);
+    return (i < 0 ? 99 : i) - (j < 0 ? 99 : j);
+  });
+  return found;
+}
 
 function render() {
   $('title').textContent = DATA.title || 'Όρχοι';
-  $('daybar').textContent = [DATA.day, DATA.hours].filter(Boolean).join(' · ');
+  $('sub').textContent = [DATA.day, DATA.hours].filter(Boolean).join(' · ');
   $('who').textContent = me || 'Ποιος είσαι;';
 
   const tabs = $('tabs'); tabs.innerHTML = '';
@@ -171,8 +200,13 @@ function render() {
     b.className = 'tab';
     b.setAttribute('role', 'tab');
     b.setAttribute('aria-selected', d.key === depot);
-    b.innerHTML = esc(d.title) + (d.checkedAt ? ' <span class="mark">✓</span>' : '');
-    b.onclick = () => { depot = d.key; localStorage.setItem('orxoi.depot', depot); open = null; render(); };
+    b.innerHTML = esc(d.title) + (d.checkedAt ? ' <span class="m">✓</span>' : '');
+    b.onclick = () => {
+      if (d.key === depot) return;
+      depot = d.key; localStorage.setItem('orxoi.depot', depot);
+      open = null; shift = '';
+      load().catch(e => toast(e.message, true));
+    };
     tabs.appendChild(b);
   });
 
@@ -180,84 +214,72 @@ function render() {
   main.innerHTML = '';
 
   if (!D) {
-    $('prog').textContent = 'Κανένας όρχος';
-    main.innerHTML = '<div class="note">Δεν βρέθηκε φύλλο όρχου στο αρχείο.</div>';
+    $('cnt').textContent = 'Κανένας όρχος';
+    $('strip').innerHTML = '';
+    main.innerHTML = '<div class="note">Δεν βρέθηκε όρχος.</div>';
     $('checkbar').hidden = true;
     return;
   }
 
-  $('prog').innerHTML = 'Ενεργά <b>' + D.active + '</b> από ' + D.total +
+  const names = shiftNames(D);
+  if (!shift || names.indexOf(shift) < 0) shift = names[0] || '';
+
+  const strip = $('strip'); strip.innerHTML = '';
+  names.forEach(n => {
+    const c = D.byShift[n] || { total: 0, active: 0 };
+    const b = document.createElement('button');
+    b.className = 'sh';
+    b.setAttribute('aria-selected', n === shift);
+    b.innerHTML = 'Αλλαγή ' + esc(n) + ' <small>' + c.active + '/' + c.total + '</small>';
+    b.onclick = () => { shift = n; localStorage.setItem('orxoi.shift', n); open = null; render(); };
+    strip.appendChild(b);
+  });
+
+  $('cnt').innerHTML = 'Ενεργά <b>' + D.active + '</b> από ' + D.total +
     (D.officer ? ' · Αξ.Υπ. ' + esc(D.officer) : '');
 
-  const order = DATA.lists.shifts.length ? DATA.lists.shifts : [];
-  const groups = [];
-  D.rows.forEach(r => {
-    const n = r.shift || '—';
-    let g = groups.find(x => x.name === n);
-    if (!g) groups.push(g = { name: n, rows: [] });
-    g.rows.push(r);
-  });
-  if (order.length) groups.sort((a, b) => {
-    const i = order.indexOf(a.name), j = order.indexOf(b.name);
-    return (i < 0 ? 99 : i) - (j < 0 ? 99 : j);
-  });
-
-  groups.forEach(g => {
-    const s = document.createElement('section');
-    s.className = 'shift';
-    const c = D.byShift[g.name] || { total: 0, active: 0 };
-    s.innerHTML = '<h2>Αλλαγή ' + esc(g.name) + '<span>' + c.active + ' ενεργά / ' + c.total + '</span></h2>';
-    g.rows.forEach(r => s.appendChild(vehicle(r)));
-    main.appendChild(s);
-  });
+  (D.rows || []).filter(r => (r.shift || '—') === shift)
+    .forEach(r => main.appendChild(vehicle(r, D)));
 
   checkbar(D);
 }
 
-function vehicle(r) {
+function vehicle(r, D) {
   const w = document.createElement('div');
   w.className = 'veh' + (open === r.ea ? ' open' : '');
 
   const h = document.createElement('button');
   h.className = 'head';
-  const l1 = r.driver ? esc(r.driver) : (r.status ? esc(r.status) : '<span class="none">ενεργό, χωρίς οδηγό</span>');
-  const l2 = [r.driver && r.status ? r.status : '', r.place, r.notes].filter(Boolean).map(esc).join(' · ');
+  const l1 = r.load ? esc(r.load) : '<span class="none">ενεργό, χωρίς χρέωση</span>';
   h.innerHTML =
-    '<span class="bar" style="background:' + colorOf(r.status) + '"></span>' +
+    '<span class="bar" style="background:' + colorOf(r.load) + '"></span>' +
     '<span class="ea">' + esc(r.ea) + '</span>' +
-    '<span class="meta"><span class="line1">' + l1 + '</span>' +
-    (l2 ? '<span class="line2">' + l2 + '</span>' : '') + '</span>';
+    '<span class="meta"><span class="l1">' + l1 + '</span>' +
+    (r.notes ? '<span class="l2">' + esc(r.notes) + '</span>' : '') + '</span>' +
+    (r.by ? '<span class="sig" title="' + esc(r.by) + ' ' + esc(r.time) + '"></span>' : '');
   h.onclick = () => { open = open === r.ea ? null : r.ea; render(); };
   w.appendChild(h);
 
-  if (open === r.ea) w.appendChild(panel(r));
+  if (open === r.ea) w.appendChild(panel(r, D));
   return w;
 }
 
-function panel(r) {
+function panel(r, D) {
   const p = document.createElement('div');
   p.className = 'panel';
-
-  const mk = (labelText, value, ph, list) => {
-    const l = document.createElement('label'); l.textContent = labelText;
-    const i = document.createElement('input');
-    i.type = 'text'; i.value = value || ''; i.placeholder = ph || '';
-    if (list) i.setAttribute('list', list);
-    p.appendChild(l); p.appendChild(i);
-    return i;
-  };
+  let loadVal = r.load;
 
   const lab = document.createElement('label');
-  lab.textContent = 'Κατάσταση';
+  lab.textContent = 'Χρέωση';
   p.appendChild(lab);
 
   const box = document.createElement('div');
   box.className = 'choices';
+
   const free = document.createElement('button');
   free.className = 'choice free';
-  free.textContent = 'Ενεργό';
-  free.setAttribute('aria-pressed', !r.status);
-  free.onclick = () => { statusVal = ''; paint(); };
+  free.textContent = 'Ενεργό, χωρίς χρέωση';
+  free.onclick = () => { loadVal = ''; driver.value = ''; paint(); };
   box.appendChild(free);
 
   const btns = [];
@@ -265,47 +287,58 @@ function panel(r) {
     const b = document.createElement('button');
     b.className = 'choice';
     b.textContent = s;
-    b.onclick = () => { statusVal = s; paint(); };
+    b.onclick = () => { loadVal = s; driver.value = ''; paint(); };
     btns.push([b, s]);
     box.appendChild(b);
   });
   p.appendChild(box);
 
-  let statusVal = r.status;
+  const dl = document.createElement('label');
+  dl.textContent = 'ή οδηγός';
+  p.appendChild(dl);
+
+  const driver = document.createElement('input');
+  driver.type = 'text';
+  driver.value = isStatus(r.load) ? '' : (r.load || '');
+  driver.placeholder = 'επώνυμο';
+  driver.setAttribute('list', 'dl-staff');
+  driver.oninput = () => { loadVal = driver.value.trim(); paint(); };
+  p.appendChild(driver);
+
   function paint() {
-    free.setAttribute('aria-pressed', !statusVal);
-    btns.forEach(([b, s]) => b.setAttribute('aria-pressed', s === statusVal));
+    free.setAttribute('aria-pressed', !loadVal);
+    btns.forEach(([b, s]) => b.setAttribute('aria-pressed', s === loadVal));
   }
   paint();
 
-  const driver = mk('Οδηγός', r.driver, 'επώνυμο', 'dl-drivers');
-  const place  = mk('Θέση, αν δεν είναι εδώ', r.place, 'π.χ. ΑΜΥΓΔΑΛΕΖΑ');
-  const notes  = mk('Παρατηρήσεις', r.notes, '');
-
-  if (!document.getElementById('dl-drivers')) {
-    const dl = document.createElement('datalist'); dl.id = 'dl-drivers';
-    DATA.lists.drivers.forEach(d => { const o = document.createElement('option'); o.value = d; dl.appendChild(o); });
-    document.body.appendChild(dl);
-  }
+  const nl = document.createElement('label');
+  nl.textContent = 'Παρατηρήσεις';
+  p.appendChild(nl);
+  const notes = document.createElement('input');
+  notes.type = 'text';
+  notes.value = r.notes || '';
+  p.appendChild(notes);
 
   const save = document.createElement('button');
   save.className = 'save';
   save.textContent = 'Αποθήκευση';
   save.onclick = async () => {
     if (!askName()) return;
+    const prev = { load: r.load, notes: r.notes, by: r.by, time: r.time };
+    r.load = loadVal; r.notes = notes.value.trim(); r.by = me;
+    recount(); open = null; render();
     try {
       const res = await send({
-        action: 'setEntry', depot: depot, row: r.row, ea: r.ea,
-        driver: driver.value.trim(), status: statusVal,
-        place: place.value.trim(), notes: notes.value.trim(), by: me
+        action: 'setEntry', depot: D.key, row: r.row, ea: r.ea,
+        load: prev.load === loadVal ? undefined : loadVal,
+        notes: notes.value.trim(), by: me
       });
-      Object.assign(r, {
-        driver: driver.value.trim(), status: statusVal,
-        place: place.value.trim(), notes: notes.value.trim(), by: me, time: res.time
-      });
-      recount(); open = null; render();
-      toast(r.ea + ' — καταχωρήθηκε');
-    } catch (e) { toast('Δεν αποθηκεύτηκε: ' + e.message); }
+      r.time = res.time;
+    } catch (e) {
+      Object.assign(r, prev);
+      recount(); render();
+      toast('Δεν αποθηκεύτηκε: ' + e.message, true);
+    }
   };
   p.appendChild(save);
 
@@ -315,19 +348,13 @@ function panel(r) {
     s.textContent = 'Τελευταία αλλαγή: ' + (r.by || '—') + ' στις ' + r.time;
     p.appendChild(s);
   }
-  return p;
-}
 
-function recount() {
-  const D = dep();
-  D.active = D.rows.filter(r => !r.status).length;
-  D.byShift = {};
-  D.rows.forEach(r => {
-    const s = r.shift || '—';
-    D.byShift[s] = D.byShift[s] || { total: 0, active: 0 };
-    D.byShift[s].total++;
-    if (!r.status) D.byShift[s].active++;
-  });
+  if (!document.getElementById('dl-staff')) {
+    const d = document.createElement('datalist'); d.id = 'dl-staff';
+    DATA.staff.forEach(s => { const o = document.createElement('option'); o.value = s.surname; d.appendChild(o); });
+    document.body.appendChild(d);
+  }
+  return p;
 }
 
 function checkbar(D) {
@@ -354,7 +381,7 @@ function checkbar(D) {
       D.checkedBy = res.by; D.checkedAt = res.at;
       render();
       toast(res.at ? 'Καταχωρήθηκε ο έλεγχος' : 'Ο έλεγχος αναιρέθηκε');
-    } catch (e) { toast(e.message); }
+    } catch (e) { toast(e.message, true); }
   };
   bar.appendChild(b);
 }
@@ -364,15 +391,18 @@ $('who').onclick = () => { askName(true); render(); };
 (async function () {
   if (API_URL.indexOf('http') !== 0) {
     $('main').innerHTML = '<div class="note bad">Λείπει η διεύθυνση του API. Συμπλήρωσε το API_URL στο index.html.</div>';
-    $('prog').textContent = 'Χωρίς σύνδεση';
+    $('cnt').textContent = 'Χωρίς σύνδεση';
     return;
   }
   try { await load(); if (!me) askName(); }
   catch (e) {
     $('main').innerHTML = '<div class="note bad">Δεν φόρτωσαν τα δεδομένα.<br>' + esc(e.message) + '</div>';
-    $('prog').textContent = 'Σφάλμα';
+    $('cnt').textContent = 'Σφάλμα';
   }
-  setInterval(() => { if (!open) load().catch(() => {}); }, 20000);
+  setInterval(() => {
+    if (document.hidden || open || busy) return;
+    load().catch(() => {});
+  }, 30000);
 })();
 </script>
 </body>
