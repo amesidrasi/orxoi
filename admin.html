@@ -12,96 +12,113 @@
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-  font-size:15px;line-height:1.45}
+  font-size:15px;line-height:1.4}
 button,input,textarea{font:inherit;color:inherit}
 
-header{position:sticky;top:0;z-index:30;background:var(--navy);color:#fff;padding:.7rem 1.25rem;text-align:center}
-header h1{margin:0;font-size:1.0625rem;font-weight:650}
-header .sub{font-size:.8125rem;color:#b9c7d8;margin-top:.1rem}
-header .right{position:absolute;right:1.25rem;top:.8rem;display:flex;gap:.5rem;align-items:center}
-header .right span{font-size:.75rem;color:#9fb1c6}
+header{position:sticky;top:0;z-index:30;background:var(--navy);color:#fff;
+  padding:.6rem 1.1rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+header h1{margin:0;font-size:1rem;font-weight:650;white-space:nowrap}
+header .f{display:flex;align-items:center;gap:.35rem}
+header .f span{font-size:.75rem;color:#9fb1c6}
+header input{padding:.25rem .45rem;border:1px solid #3d5a80;border-radius:4px;
+  background:#12263f;color:#fff}
+header input:focus{outline:none;border-color:#fff}
+header input[readonly]{opacity:.75;cursor:default}
+header .sp{flex:1}
+header .st{font-size:.72rem;color:#9fb1c6}
 header button{background:transparent;border:1px solid #3d5a80;color:#cddaea;
-  padding:.3rem .7rem;border-radius:5px;cursor:pointer;font-size:.8125rem}
+  padding:.28rem .65rem;border-radius:4px;cursor:pointer;font-size:.8125rem;white-space:nowrap}
 header button:hover{border-color:#fff;color:#fff}
 
-.daystrip{background:var(--band);border-bottom:1px solid var(--line);
-  padding:.6rem 1.25rem;display:flex;gap:1.25rem;align-items:center;flex-wrap:wrap}
-.daystrip label{font-size:.75rem;font-weight:650;color:var(--sub);display:block;margin-bottom:.15rem}
-.daystrip input{padding:.35rem .5rem;border:1px solid var(--line);border-radius:5px;background:#fff}
-.daystrip input:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 2px rgba(27,59,99,.12)}
-
-.layout{display:flex;align-items:flex-start;gap:1.5rem;padding:1.25rem;max-width:1500px;margin:0 auto}
-aside{flex:0 0 17rem;position:sticky;top:5rem}
-aside h2{font-size:.75rem;font-weight:650;color:var(--sub);margin:0 0 .5rem}
+.layout{display:flex;align-items:flex-start;gap:1.1rem;padding:1rem;max-width:1800px;margin:0 auto}
+aside{flex:0 0 15rem;position:sticky;top:4rem}
+aside h2{font-size:.72rem;font-weight:650;color:var(--sub);margin:0 0 .4rem}
 .dep{display:block;width:100%;text-align:left;background:none;border:1px solid transparent;
-  padding:.55rem .7rem;border-radius:6px;cursor:pointer;margin-bottom:.15rem}
+  padding:.45rem .6rem;border-radius:5px;cursor:pointer;margin-bottom:.1rem}
 .dep:hover{background:var(--band)}
 .dep[aria-current="true"]{background:var(--band);border-color:var(--line);font-weight:600}
-.dep .n{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem}
+.dep .n{display:flex;justify-content:space-between;gap:.5rem}
 .dep .c{font-size:.8125rem;color:var(--sub);font-variant-numeric:tabular-nums;font-weight:400}
-.dep .ck{font-size:.75rem;color:var(--ok)}
-.dep .ck.no{color:var(--idle)}
-.dep .st{font-size:.75rem;color:var(--sub)}
-.addbox{margin-top:.9rem;padding-top:.7rem;border-top:1px solid var(--line);display:flex;gap:.35rem}
-.addbox input{flex:1;min-width:0;padding:.4rem .5rem;border:1px solid var(--line);border-radius:5px}
-.addbox button{background:var(--navy);color:#fff;border:none;padding:.4rem .7rem;border-radius:5px;cursor:pointer}
+.dep .m{font-size:.72rem;color:var(--idle)}
+.dep .m.ok{color:var(--ok)}
+.addbox{margin-top:.8rem;padding-top:.6rem;border-top:1px solid var(--line);display:flex;gap:.3rem}
+.addbox input{flex:1;min-width:0;padding:.35rem .45rem;border:1px solid var(--line);border-radius:4px}
+.addbox button{background:var(--navy);color:#fff;border:none;padding:.35rem .6rem;border-radius:4px;cursor:pointer}
 
 section{flex:1;min-width:0}
-.tools{display:flex;align-items:center;gap:.45rem;margin-bottom:.5rem;flex-wrap:wrap}
-.tools h2{margin:0;font-size:1.125rem;font-weight:650;flex:1 1 100%}
-.tools button{background:#fff;border:1px solid var(--line);padding:.4rem .75rem;border-radius:5px;cursor:pointer;font-size:.875rem}
-.tools button:hover{border-color:var(--navy)}
-.tools button.go{background:var(--navy);color:#fff;border-color:var(--navy)}
-.tools button.danger:hover{border-color:var(--bad);color:var(--bad)}
+.top{display:flex;align-items:flex-end;gap:.75rem;margin-bottom:.8rem;flex-wrap:wrap}
+.top h2{margin:0;font-size:1.1rem;font-weight:650}
+.fld{display:flex;flex-direction:column;gap:.15rem}
+.fld label{font-size:.7rem;font-weight:650;color:var(--sub)}
+.fld input{padding:.35rem .5rem;border:1px solid var(--line);border-radius:5px}
+.fld input:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 2px rgba(27,59,99,.12)}
+.sendwrap{display:flex;align-items:center;gap:.3rem}
+.sendbtn{background:#fff;border:1px solid var(--line);padding:.35rem .7rem;border-radius:5px;
+  cursor:pointer;font-size:.8125rem;white-space:nowrap}
+.sendbtn:hover{border-color:var(--navy)}
+.sendbtn[disabled]{opacity:.4;cursor:default}
+.sentmark{font-size:.72rem;color:var(--sub);white-space:nowrap}
 
-.depmeta{display:flex;gap:1rem;margin-bottom:.9rem;flex-wrap:wrap}
-.depmeta div{flex:1 1 14rem}
-.depmeta label{font-size:.75rem;font-weight:650;color:var(--sub);display:block;margin-bottom:.15rem}
-.depmeta input{width:100%;padding:.4rem .5rem;border:1px solid var(--line);border-radius:5px}
-.depmeta input:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 2px rgba(27,59,99,.12)}
+.warn{margin-bottom:.8rem;padding:.6rem .9rem;border-radius:5px;background:#fbeaea;
+  border-left:4px solid var(--bad);color:var(--bad);font-size:.85rem}
+.note{margin-bottom:.8rem;padding:.6rem .9rem;border-radius:5px;background:var(--band);
+  border-left:4px solid var(--idle);color:var(--sub);font-size:.85rem}
 
-.warn{margin-bottom:1rem;padding:.7rem 1rem;border-radius:6px;background:#fbeaea;
-  border-left:4px solid var(--bad);color:var(--bad);font-size:.875rem}
-.info{margin-bottom:1rem;padding:.7rem 1rem;border-radius:6px;background:var(--band);
-  border-left:4px solid var(--idle);color:var(--sub);font-size:.875rem}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:.9rem;align-items:start}
+.col{border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.col h3{margin:0;background:var(--navy);color:#fff;padding:.4rem .6rem;font-size:.8125rem;
+  font-weight:650;display:flex;justify-content:space-between;gap:.5rem}
+.col h3 span{font-weight:400;color:#b9c7d8}
+.veh{display:flex;align-items:center;gap:.4rem;padding:.1rem .35rem .1rem .5rem;
+  border-bottom:1px solid #eef2f6}
+.veh:last-child{border-bottom:none}
+.bar{width:3px;align-self:stretch;min-height:1.6rem;border-radius:2px;background:var(--ok);flex:0 0 auto}
+.ea{font-weight:650;font-variant-numeric:tabular-nums;font-size:.875rem;
+  min-width:3.6rem;letter-spacing:.01em}
+.veh input{flex:1;min-width:0;padding:.3rem .35rem;border:1px solid transparent;
+  border-radius:4px;background:transparent;font-size:.875rem}
+.veh input:hover{border-color:var(--line)}
+.veh input:focus{outline:none;border-color:var(--navy);background:#fff;box-shadow:0 0 0 2px rgba(27,59,99,.12)}
+.pen{background:none;border:none;cursor:pointer;color:var(--idle);padding:.15rem .25rem;
+  border-radius:3px;font-size:.8rem;line-height:1}
+.pen:hover{color:var(--navy);background:var(--band)}
+.pen.has{color:var(--navy)}
+.sig{width:6px;height:6px;border-radius:50%;background:var(--navy);opacity:.55;flex:0 0 auto}
+.sig.none{background:transparent}
+.notesrow{padding:.1rem .5rem .35rem 1.3rem;border-bottom:1px solid #eef2f6}
+.notesrow input{width:100%;padding:.3rem .4rem;border:1px solid var(--line);
+  border-radius:4px;font-size:.8125rem;background:#fff}
+.del{background:none;border:none;color:#c8d0d8;cursor:pointer;padding:.15rem .2rem;font-size:.75rem}
+.del:hover{color:var(--bad)}
+.addveh{display:flex;gap:.3rem;padding:.4rem .5rem;background:var(--band)}
+.addveh input{flex:1;min-width:0;padding:.3rem .4rem;border:1px solid var(--line);border-radius:4px;font-size:.8125rem}
+.addveh button{background:var(--navy);color:#fff;border:none;padding:.3rem .6rem;border-radius:4px;cursor:pointer;font-size:.8125rem}
 
-table{width:100%;border-collapse:collapse}
-th{text-align:left;font-size:.75rem;font-weight:650;color:#fff;background:var(--navy);
-  padding:.5rem .6rem;white-space:nowrap}
-td{padding:.2rem .6rem;border-bottom:1px solid var(--line)}
-tr.sh td{background:var(--band);font-weight:650;font-size:.8125rem;color:var(--navy)}
-tr.sh .cnt{font-weight:500;color:var(--sub)}
-.ea{font-weight:650;font-variant-numeric:tabular-nums;white-space:nowrap}
-.swatch{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:.45rem}
-td input{width:100%;padding:.35rem .45rem;border:1px solid transparent;border-radius:4px;background:transparent}
-td input:hover{border-color:var(--line)}
-td input:focus{outline:none;border-color:var(--navy);background:#fff;box-shadow:0 0 0 2px rgba(27,59,99,.12)}
-.when{font-size:.8125rem;color:var(--sub);white-space:nowrap;font-variant-numeric:tabular-nums}
-.del{background:none;border:none;color:var(--idle);cursor:pointer;padding:.2rem .35rem;border-radius:4px}
-.del:hover{color:var(--bad);background:var(--band)}
-tr.add td{background:var(--band)}
-tr.add input{background:#fff;border-color:var(--line)}
-tr.add button{background:var(--navy);color:#fff;border:none;padding:.35rem .8rem;border-radius:5px;cursor:pointer}
+.foot{margin-top:1rem;display:flex;gap:.4rem;justify-content:flex-end}
+.foot button{background:#fff;border:1px solid #e3c9c9;color:#8a5555;padding:.35rem .7rem;
+  border-radius:5px;cursor:pointer;font-size:.8125rem}
+.foot button:hover{border-color:var(--bad);color:var(--bad)}
 
-dialog{border:none;border-radius:10px;padding:0;max-width:44rem;width:92vw;box-shadow:0 10px 40px rgba(0,0,0,.25)}
+dialog{border:none;border-radius:10px;padding:0;max-width:46rem;width:94vw;
+  box-shadow:0 10px 40px rgba(0,0,0,.25)}
 dialog::backdrop{background:rgba(10,20,35,.45)}
-.dlg-h{background:var(--navy);color:#fff;padding:.8rem 1.15rem;font-weight:650}
-.dlg-b{padding:1.15rem;max-height:70vh;overflow:auto}
-.dlg-f{padding:.8rem 1.15rem;border-top:1px solid var(--line);display:flex;gap:.5rem;justify-content:flex-end}
-.dlg-f button{padding:.5rem 1rem;border-radius:5px;border:1px solid var(--line);background:#fff;cursor:pointer}
-.dlg-f button.go{background:var(--navy);color:#fff;border-color:var(--navy)}
-.fld{margin-bottom:1.1rem}
-.fld label{display:block;font-size:.75rem;font-weight:650;color:var(--sub);margin-bottom:.25rem}
-.fld .hint{font-size:.8125rem;color:var(--sub);margin-bottom:.35rem}
-textarea{width:100%;min-height:8rem;padding:.55rem .65rem;border:1px solid var(--line);
-  border-radius:6px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.875rem;line-height:1.6}
+.dh{background:var(--navy);color:#fff;padding:.75rem 1.1rem;font-weight:650}
+.db{padding:1.1rem;max-height:70vh;overflow:auto}
+.df{padding:.7rem 1.1rem;border-top:1px solid var(--line);display:flex;gap:.5rem;justify-content:flex-end}
+.df button{padding:.45rem .95rem;border-radius:5px;border:1px solid var(--line);background:#fff;cursor:pointer}
+.df button.go{background:var(--navy);color:#fff;border-color:var(--navy)}
+.grp{margin-bottom:1.1rem}
+.grp label{display:block;font-size:.72rem;font-weight:650;color:var(--sub);margin-bottom:.2rem}
+.grp .hint{font-size:.8125rem;color:var(--sub);margin-bottom:.3rem}
+textarea{width:100%;min-height:7rem;padding:.5rem .6rem;border:1px solid var(--line);
+  border-radius:5px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.85rem;line-height:1.6}
 textarea:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 2px rgba(27,59,99,.12)}
-pre{white-space:pre-wrap;background:var(--band);padding:1rem;border-radius:6px;
-  font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8125rem;margin:0}
+pre{white-space:pre-wrap;background:var(--band);padding:.9rem;border-radius:5px;
+  font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;margin:0}
 
-.toast{position:fixed;right:1.25rem;bottom:1.25rem;background:var(--navy);color:#fff;
-  padding:.7rem 1.1rem;border-radius:6px;font-size:.875rem;z-index:60;
-  opacity:0;pointer-events:none;transition:opacity .18s;max-width:28rem}
+.toast{position:fixed;right:1.1rem;bottom:1.1rem;background:var(--navy);color:#fff;
+  padding:.6rem 1rem;border-radius:5px;font-size:.85rem;z-index:60;
+  opacity:0;pointer-events:none;transition:opacity .16s;max-width:26rem}
 .toast.show{opacity:1}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -109,27 +126,22 @@ pre{white-space:pre-wrap;background:var(--band);padding:1rem;border-radius:6px;
 <body>
 
 <header>
-  <h1 id="title">Όρχοι — Διαχείριση</h1>
-  <div class="sub" id="sub"></div>
-  <div class="right">
-    <span id="sync"></span>
-    <button id="btnLists">Λίστες</button>
-    <button id="btnKey">Κωδικός</button>
-  </div>
+  <h1 id="title">Όρχοι</h1>
+  <div class="f"><span>Ημερομηνία</span><input id="fDay" size="10"></div>
+  <div class="f"><span>Ωράριο</span><input id="fHours" size="11" readonly title="Βγαίνει από την ημερομηνία"></div>
+  <div class="sp"></div>
+  <span class="st" id="sync"></span>
+  <button id="btnStaff">Προσωπικό</button>
+  <button id="btnLists">Λίστες</button>
+  <button id="btnKey">Κωδικός</button>
 </header>
-
-<div class="daystrip">
-  <div><label for="fDay">Ημερομηνία</label><input id="fDay" type="text" placeholder="9/9/2026" size="12"></div>
-  <div><label for="fHours">Ωράριο</label><input id="fHours" type="text" placeholder="21:00-05:30" size="14"></div>
-  <div style="flex:1"><label for="fTitle">Τίτλος</label><input id="fTitle" type="text" style="width:100%"></div>
-</div>
 
 <div class="layout">
   <aside>
     <h2>Όρχοι</h2>
     <div id="deps"></div>
     <div class="addbox">
-      <input id="newDepot" type="text" placeholder="νέος όρχος">
+      <input id="newDepot" placeholder="νέος όρχος">
       <button id="btnAddDepot">+</button>
     </div>
   </aside>
@@ -137,37 +149,40 @@ pre{white-space:pre-wrap;background:var(--band);padding:1rem;border-radius:6px;
 </div>
 
 <dialog id="dlgLists">
-  <div class="dlg-h">Λίστες</div>
-  <div class="dlg-b">
-    <div class="fld">
+  <div class="dh">Λίστες</div>
+  <div class="db">
+    <div class="grp">
       <label for="taShifts">Αλλαγές</label>
       <div class="hint">Με τη σειρά που θέλεις να εμφανίζονται. Μία ανά γραμμή.</div>
       <textarea id="taShifts" style="min-height:5rem"></textarea>
     </div>
-    <div class="fld">
+    <div class="grp">
       <label for="taStatuses">Καταστάσεις</label>
-      <div class="hint">Μία ανά γραμμή. Για χρώμα, βάλε κάθετο και κωδικό: ΣΥΝΕΡΓΕΙΟ | #b06a00</div>
+      <div class="hint">Κάθε κατάσταση αποκλείει οδηγό. Για χρώμα: ΣΥΝΕΡΓΕΙΟ | #b06a00</div>
       <textarea id="taStatuses"></textarea>
     </div>
-    <div class="fld">
-      <label for="taDrivers">Οδηγοί</label>
-      <div class="hint">Επώνυμα, ένα ανά γραμμή. Εμφανίζονται ως προτάσεις.</div>
-      <textarea id="taDrivers"></textarea>
+  </div>
+  <div class="df"><button id="listsCancel">Ακύρωση</button><button class="go" id="listsSave">Αποθήκευση</button></div>
+</dialog>
+
+<dialog id="dlgStaff">
+  <div class="dh">Προσωπικό</div>
+  <div class="db">
+    <div class="grp">
+      <div class="hint">Μία γραμμή ανά άτομο, χωρισμένα με κάθετο:<br>
+        <b>ΕΠΩΝΥΜΟ | ΟΝΟΜΑ | ΒΑΘΜΟΣ | EMAIL | ΑΞ</b><br>
+        Αρκεί το επώνυμο. Γράψε <b>ΑΞ</b> στο τέλος για όποιον μπορεί να είναι αξιωματικός υπηρεσίας.
+        Το ίδιο φαίνεται και στο φύλλο _ΠΡΟΣΩΠΙΚΟ.</div>
+      <textarea id="taStaff" style="min-height:16rem"></textarea>
     </div>
   </div>
-  <div class="dlg-f">
-    <button id="listsCancel">Ακύρωση</button>
-    <button class="go" id="listsSave">Αποθήκευση</button>
-  </div>
+  <div class="df"><button id="staffCancel">Ακύρωση</button><button class="go" id="staffSave">Αποθήκευση</button></div>
 </dialog>
 
 <dialog id="dlgMail">
-  <div class="dlg-h" id="mailHead">Προεπισκόπηση</div>
-  <div class="dlg-b"><pre id="mailBody"></pre></div>
-  <div class="dlg-f">
-    <button id="mailCancel">Κλείσιμο</button>
-    <button class="go" id="mailSend">Αποστολή</button>
-  </div>
+  <div class="dh" id="mailHead">Προεπισκόπηση</div>
+  <div class="db"><pre id="mailBody"></pre></div>
+  <div class="df"><button id="mailCancel">Κλείσιμο</button><button class="go" id="mailSend">Αποστολή</button></div>
 </dialog>
 
 <div class="toast" id="toast"></div>
@@ -178,31 +193,38 @@ const API_URL = 'https://script.google.com/macros/s/AKfycbw94CQU8JZr-v4m2ys76QVo
 let DATA = null;
 let depot = localStorage.getItem('orxoi.admin.depot') || '';
 let key   = localStorage.getItem('orxoi.admin.key')   || '';
-let mailTarget = null;
+let openNotes = {};
+let busy = 0;
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const isStatus = v => v && DATA.lists.statuses.indexOf(v) >= 0;
+const colorOf = v => isStatus(v) ? (DATA.lists.colors[v] || '#8b98a6') : '#1a7a45';
 
-async function load() {
-  const r = await fetch(API_URL + '?t=' + Date.now());
+async function load(silent) {
+  const q = depot ? '&depot=' + encodeURIComponent(depot) : '';
+  const r = await fetch(API_URL + '?t=' + Date.now() + q);
   const d = await r.json();
   if (!d.ok) throw new Error(d.error);
   DATA = d;
-  if (!depot || !d.depots.some(x => x.key === depot)) depot = d.depots.length ? d.depots[0].key : '';
+  depot = d.current || '';
   render();
-  $('sync').textContent = 'Ανανεώθηκε ' + new Date().toLocaleTimeString('el-GR');
+  $('sync').textContent = new Date().toLocaleTimeString('el-GR');
 }
 
 async function send(p) {
   p.key = key;
-  const r = await fetch(API_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-    body: JSON.stringify(p)
-  });
-  const d = await r.json();
-  if (!d.ok) throw new Error(d.error);
-  return d;
+  busy++;
+  try {
+    const r = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(p)
+    });
+    const d = await r.json();
+    if (!d.ok) throw new Error(d.error);
+    return d;
+  } finally { busy--; }
 }
 
 function toast(m, bad) {
@@ -210,11 +232,11 @@ function toast(m, bad) {
   t.textContent = m;
   t.style.background = bad ? '#b02525' : '';
   t.classList.add('show');
-  clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('show'), 3200);
+  clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('show'), bad ? 4000 : 1800);
 }
 
 async function askKey() {
-  const v = prompt('Κωδικός διαχειριστή (από το φύλλο _ΡΥΘΜΙΣΕΙΣ):', key || '');
+  const v = prompt('Κωδικός διαχειριστή (φύλλο _ΡΥΘΜΙΣΕΙΣ):', key || '');
   if (v === null) return false;
   key = v.trim();
   try {
@@ -231,38 +253,49 @@ async function askKey() {
 const ensureKey = async () => key ? true : askKey();
 
 const dep = () => DATA.depots.find(d => d.key === depot);
-const colorOf = s => (s && DATA.lists.colors[s]) || (s ? '#8b98a6' : '#1a7a45');
 
-/* ---------- ρυθμίσεις ημέρας ---------- */
+function recount() {
+  const D = dep();
+  if (!D || !D.rows) return;
+  D.total = D.rows.length;
+  D.active = 0;
+  D.byShift = {};
+  D.rows.forEach(r => {
+    const s = r.shift || '—';
+    D.byShift[s] = D.byShift[s] || { total: 0, active: 0 };
+    D.byShift[s].total++;
+    if (!isStatus(r.load)) { D.active++; D.byShift[s].active++; }
+  });
+}
 
-function bindSetting(el, name) {
+/* ---------- ημερομηνία ---------- */
+
+(function () {
+  const el = $('fDay');
   let before = '';
   el.onfocus = () => { before = el.value; };
   el.onblur = async () => {
     if (el.value === before) return;
     if (!(await ensureKey())) { el.value = before; return; }
     try {
-      await send({ action: 'setSetting', name: name, value: el.value.trim() });
+      const r = await send({ action: 'setSetting', name: 'ΗΜΕΡΟΜΗΝΙΑ', value: el.value.trim() });
       before = el.value;
-      toast('Αποθηκεύτηκε');
-      load();
+      DATA.day = el.value.trim();
+      DATA.hours = r.hours || '';
+      $('fHours').value = DATA.hours;
+      if (!DATA.hours) toast('Προσοχή: εκείνη η μέρα είναι αδιάθετο', true);
     } catch (e) { el.value = before; toast(e.message, true); }
   };
   el.onkeydown = e => { if (e.key === 'Enter') el.blur(); if (e.key === 'Escape') { el.value = before; el.blur(); } };
-}
-bindSetting($('fDay'), 'ΗΜΕΡΟΜΗΝΙΑ');
-bindSetting($('fHours'), 'ΩΡΑΡΙΟ');
-bindSetting($('fTitle'), 'ΤΙΤΛΟΣ');
+})();
 
 /* ---------- εμφάνιση ---------- */
 
 function render() {
   const act = document.activeElement;
-  $('title').textContent = (DATA.title || 'Όρχοι') + ' — Διαχείριση';
-  $('sub').textContent = [DATA.day, DATA.hours].filter(Boolean).join(' · ');
+  $('title').textContent = DATA.title || 'Όρχοι';
   if (act !== $('fDay')) $('fDay').value = DATA.day;
-  if (act !== $('fHours')) $('fHours').value = DATA.hours;
-  if (act !== $('fTitle')) $('fTitle').value = DATA.title;
+  $('fHours').value = DATA.hours || 'αδιάθετο';
 
   const deps = $('deps'); deps.innerHTML = '';
   DATA.depots.forEach(d => {
@@ -271,10 +304,14 @@ function render() {
     b.setAttribute('aria-current', d.key === depot);
     b.innerHTML =
       '<div class="n"><span>' + esc(d.title) + '</span><span class="c">' + d.active + '/' + d.total + '</span></div>' +
-      '<div class="ck' + (d.checkedAt ? '' : ' no') + '">' +
-      (d.checkedAt ? '✓ έλεγχος ' + esc(d.checkedBy || '') + ' ' + esc(d.checkedAt) : 'χωρίς έλεγχο') + '</div>' +
-      (d.sent ? '<div class="st">✉ στάλθηκε ' + esc(d.sent) + '</div>' : '');
-    b.onclick = () => { depot = d.key; localStorage.setItem('orxoi.admin.depot', depot); render(); };
+      '<div class="m' + (d.checkedAt ? ' ok' : '') + '">' +
+      (d.checkedAt ? '✓ ' + esc(d.checkedBy || '') + ' ' + esc(d.checkedAt) : 'χωρίς έλεγχο') + '</div>';
+    b.onclick = () => {
+      if (d.key === depot) return;
+      depot = d.key; localStorage.setItem('orxoi.admin.depot', depot);
+      openNotes = {};
+      load().catch(e => toast(e.message, true));
+    };
     deps.appendChild(b);
   });
 
@@ -285,54 +322,24 @@ function render() {
   if (dup.length) {
     const w = document.createElement('div');
     w.className = 'warn';
-    w.innerHTML = 'Το ίδιο Ε.Α. σε πάνω από έναν όρχο: ' +
+    w.innerHTML = 'Ίδιο Ε.Α. σε πάνω από έναν όρχο: ' +
       dup.map(ea => '<b>' + esc(ea) + '</b> (' + DATA.duplicates[ea].map(esc).join(', ') + ')').join(' · ');
     body.appendChild(w);
   }
-
   if (DATA.missing && DATA.missing.length) {
     const w = document.createElement('div');
-    w.className = 'info';
-    w.textContent = 'Όρχοι χωρίς φύλλο: ' + DATA.missing.join(', ') + '. Πάτα «Δημιουργία φύλλων».';
+    w.className = 'note';
+    w.textContent = 'Όρχοι χωρίς φύλλο: ' + DATA.missing.join(', ');
     body.appendChild(w);
   }
-
   if (!D) {
-    body.insertAdjacentHTML('beforeend', '<div class="info">Δεν υπάρχει όρχος. Πρόσθεσε έναν από το πλαϊνό πλαίσιο.</div>');
+    body.insertAdjacentHTML('beforeend', '<div class="note">Δεν υπάρχει όρχος. Πρόσθεσε έναν αριστερά.</div>');
     return;
   }
 
-  const tools = document.createElement('div');
-  tools.className = 'tools';
-  tools.innerHTML = '<h2>' + esc(D.title) + '</h2>';
+  body.appendChild(topBar(D));
+  if (!D.rows) return;
 
-  const mk = (label, cls, fn) => {
-    const b = document.createElement('button');
-    if (cls) b.className = cls;
-    b.textContent = label; b.onclick = fn;
-    tools.appendChild(b);
-  };
-  mk('Αποστολή πλάνου', 'go', () => openMail(D.key));
-  mk('Σε όλους', '', () => openMail('*'));
-  mk('Δημιουργία φύλλων', '', syncDepots);
-  mk('Καθαρισμός ημέρας', 'danger', () => clearDay(D.key, D.title));
-  mk('Καθαρισμός όλων', 'danger', () => clearDay('*', 'όλους τους όρχους'));
-  body.appendChild(tools);
-
-  const meta = document.createElement('div');
-  meta.className = 'depmeta';
-  meta.appendChild(metaField(D, 'title', 'Όνομα όρχου'));
-  meta.appendChild(metaField(D, 'officer', 'Αξιωματικός υπηρεσίας'));
-  meta.appendChild(metaField(D, 'email', 'Email αξιωματικού'));
-  body.appendChild(meta);
-
-  const table = document.createElement('table');
-  table.innerHTML = '<thead><tr>' +
-    '<th style="width:5.5rem">Ε.Α.</th><th style="width:16%">Οδηγός</th>' +
-    '<th style="width:19%">Κατάσταση</th><th style="width:13%">Θέση</th>' +
-    '<th>Παρατηρήσεις</th><th style="width:9rem">Δήλωσε</th><th style="width:2.2rem"></th></tr></thead>';
-
-  const tb = document.createElement('tbody');
   const order = DATA.lists.shifts;
   const groups = [];
   D.rows.forEach(r => {
@@ -346,75 +353,62 @@ function render() {
     return (i < 0 ? 99 : i) - (j < 0 ? 99 : j);
   });
 
-  groups.forEach(g => {
-    const c = D.byShift[g.name] || { total: 0, active: 0 };
-    const tr = document.createElement('tr');
-    tr.className = 'sh';
-    tr.innerHTML = '<td colspan="7">Αλλαγή ' + esc(g.name) +
-      ' <span class="cnt">— ' + c.active + ' ενεργά από ' + c.total + '</span></td>';
-    tb.appendChild(tr);
-    g.rows.forEach(r => tb.appendChild(rowFor(r, D)));
-  });
+  const grid = document.createElement('div');
+  grid.className = 'cols';
+  groups.forEach(g => grid.appendChild(column(g, D)));
+  body.appendChild(grid);
 
-  tb.appendChild(addRow(D, groups.length ? groups[groups.length - 1].name : ''));
-  table.appendChild(tb);
-  body.appendChild(table);
+  const foot = document.createElement('div');
+  foot.className = 'foot';
+  [['Καθαρισμός — ' + D.title, D.key, D.title], ['Καθαρισμός όλων', '*', 'όλους τους όρχους']]
+    .forEach(([label, t, l]) => {
+      const b = document.createElement('button');
+      b.textContent = label; b.onclick = () => clearDay(t, l);
+      foot.appendChild(b);
+    });
+  body.appendChild(foot);
+
   datalists();
 }
 
-function metaField(D, field, label) {
+function topBar(D) {
+  const bar = document.createElement('div');
+  bar.className = 'top';
+
+  const h = document.createElement('h2');
+  h.textContent = D.title + ' · ' + D.active + ' ενεργά από ' + D.total;
+  bar.appendChild(h);
+
+  bar.appendChild(depField(D, 'officer', 'Αξιωματικός υπηρεσίας', 'dl-officers'));
+
+  const em = depField(D, 'email', 'Email', null);
+  bar.appendChild(em);
+
+  const wrap = document.createElement('div');
+  wrap.className = 'sendwrap';
+  const b = document.createElement('button');
+  b.className = 'sendbtn';
+  b.textContent = 'Αποστολή πλάνου';
+  b.disabled = !D.email;
+  b.onclick = () => openMail(D.key);
+  wrap.appendChild(b);
+  if (D.sent) {
+    const s = document.createElement('span');
+    s.className = 'sentmark';
+    s.textContent = '✉ ' + D.sent;
+    wrap.appendChild(s);
+  }
+  bar.appendChild(wrap);
+  return bar;
+}
+
+function depField(D, field, label, list) {
   const w = document.createElement('div');
+  w.className = 'fld';
   const l = document.createElement('label'); l.textContent = label;
   const i = document.createElement('input');
-  i.type = 'text'; i.value = D[field] || '';
-  if (field === 'email') i.placeholder = 'ονομα@astynomia.gr';
-
-  let before = i.value;
-  i.onblur = async () => {
-    const v = i.value.trim();
-    if (v === before) return;
-    if (!(await ensureKey())) { i.value = before; return; }
-    try {
-      await send({ action: 'setDepot', depot: D.key, field: field, value: v });
-      before = v; toast('Αποθηκεύτηκε'); load();
-    } catch (e) { i.value = before; toast(e.message, true); }
-  };
-  i.onkeydown = e => { if (e.key === 'Enter') i.blur(); if (e.key === 'Escape') { i.value = before; i.blur(); } };
-
-  w.appendChild(l); w.appendChild(i);
-  return w;
-}
-
-function rowFor(r, D) {
-  const tr = document.createElement('tr');
-  const ea = document.createElement('td');
-  ea.className = 'ea';
-  ea.innerHTML = '<span class="swatch" style="background:' + colorOf(r.status) + '"></span>' + esc(r.ea);
-  tr.appendChild(ea);
-
-  tr.appendChild(cell(r, 'driver', 'dl-drivers'));
-  tr.appendChild(cell(r, 'status', 'dl-status'));
-  tr.appendChild(cell(r, 'place', 'dl-depots'));
-  tr.appendChild(cell(r, 'notes', null));
-
-  const who = document.createElement('td');
-  who.className = 'when';
-  who.textContent = r.by ? r.by + (r.time ? ' ' + r.time : '') : (r.time || '');
-  tr.appendChild(who);
-
-  const td = document.createElement('td');
-  const b = document.createElement('button');
-  b.className = 'del'; b.textContent = '✕'; b.title = 'Διαγραφή οχήματος';
-  b.onclick = () => removeVehicle(r, D);
-  td.appendChild(b);
-  tr.appendChild(td);
-  return tr;
-}
-
-function cell(r, field, list) {
-  const td = document.createElement('td');
-  const i = document.createElement('input');
-  i.type = 'text'; i.value = r[field] || '';
+  i.value = D[field] || '';
+  i.size = field === 'email' ? 24 : 18;
   if (list) i.setAttribute('list', list);
 
   let before = i.value;
@@ -423,14 +417,162 @@ function cell(r, field, list) {
     if (v === before) return;
     if (!(await ensureKey())) { i.value = before; return; }
     try {
-      await send({ action: 'setField', depot: depot, row: r.row, ea: r.ea, field: field, value: v, by: 'ΔΙΑΧ.' });
-      r[field] = v; before = v; toast(r.ea + ' — ενημερώθηκε'); load();
+      const r = await send({ action: 'setDepot', depot: D.key, field: field, value: v });
+      D[field] = v; before = v;
+      if (r.email) { D.email = r.email; render(); }
+      else render();
     } catch (e) { i.value = before; toast(e.message, true); }
   };
   i.onkeydown = e => { if (e.key === 'Enter') i.blur(); if (e.key === 'Escape') { i.value = before; i.blur(); } };
 
-  td.appendChild(i);
-  return td;
+  w.appendChild(l); w.appendChild(i);
+  return w;
+}
+
+function column(g, D) {
+  const col = document.createElement('div');
+  col.className = 'col';
+  const c = D.byShift[g.name] || { total: 0, active: 0 };
+  const h = document.createElement('h3');
+  h.innerHTML = 'Αλλαγή ' + esc(g.name) + '<span>' + c.active + ' / ' + c.total + '</span>';
+  col.appendChild(h);
+
+  g.rows.forEach(r => {
+    col.appendChild(vehicleRow(r, D));
+    if (openNotes[r.ea] || r.notes) col.appendChild(notesRow(r, D));
+  });
+
+  col.appendChild(addVehicleRow(D, g.name));
+  return col;
+}
+
+function vehicleRow(r, D) {
+  const row = document.createElement('div');
+  row.className = 'veh';
+
+  const bar = document.createElement('span');
+  bar.className = 'bar';
+  bar.style.background = colorOf(r.load);
+  row.appendChild(bar);
+
+  const ea = document.createElement('span');
+  ea.className = 'ea'; ea.textContent = r.ea;
+  row.appendChild(ea);
+
+  const inp = document.createElement('input');
+  inp.value = r.load || '';
+  inp.placeholder = '—';
+  inp.setAttribute('list', 'dl-load');
+  inp.title = 'Οδηγός ή κατάσταση';
+
+  let before = inp.value;
+  inp.onblur = async () => {
+    const v = inp.value.trim();
+    if (v === before) return;
+    const prev = r.load;
+    r.load = v;
+    bar.style.background = colorOf(v);
+    before = v;
+    recount(); refreshCounts();
+    try {
+      await send({ action: 'setEntry', depot: D.key, row: r.row, ea: r.ea, load: v });
+    } catch (e) {
+      r.load = prev; inp.value = prev; before = prev;
+      bar.style.background = colorOf(prev);
+      recount(); refreshCounts();
+      toast(e.message, true);
+    }
+  };
+  inp.onkeydown = e => { if (e.key === 'Enter') inp.blur(); if (e.key === 'Escape') { inp.value = before; inp.blur(); } };
+  row.appendChild(inp);
+
+  const sig = document.createElement('span');
+  sig.className = 'sig' + (r.by ? '' : ' none');
+  if (r.by) sig.title = 'Δηλώθηκε από ' + r.by + (r.time ? ' στις ' + r.time : '');
+  row.appendChild(sig);
+
+  const pen = document.createElement('button');
+  pen.className = 'pen' + (r.notes ? ' has' : '');
+  pen.textContent = '✎';
+  pen.title = 'Παρατηρήσεις';
+  pen.onclick = () => {
+    openNotes[r.ea] = !openNotes[r.ea];
+    render();
+    const f = document.getElementById('nt-' + r.ea);
+    if (f) f.focus();
+  };
+  row.appendChild(pen);
+
+  const del = document.createElement('button');
+  del.className = 'del'; del.textContent = '✕'; del.title = 'Διαγραφή οχήματος';
+  del.onclick = () => removeVehicle(r, D);
+  row.appendChild(del);
+
+  return row;
+}
+
+function notesRow(r, D) {
+  const w = document.createElement('div');
+  w.className = 'notesrow';
+  const i = document.createElement('input');
+  i.id = 'nt-' + r.ea;
+  i.value = r.notes || '';
+  i.placeholder = 'παρατηρήσεις';
+
+  let before = i.value;
+  i.onblur = async () => {
+    const v = i.value.trim();
+    if (v === before) return;
+    const prev = r.notes;
+    r.notes = v; before = v;
+    try {
+      await send({ action: 'setEntry', depot: D.key, row: r.row, ea: r.ea, notes: v });
+    } catch (e) {
+      r.notes = prev; i.value = prev; before = prev;
+      toast(e.message, true);
+    }
+  };
+  i.onkeydown = e => { if (e.key === 'Enter') i.blur(); if (e.key === 'Escape') { i.value = before; i.blur(); } };
+
+  w.appendChild(i);
+  return w;
+}
+
+function addVehicleRow(D, shift) {
+  const w = document.createElement('div');
+  w.className = 'addveh';
+  const i = document.createElement('input');
+  i.placeholder = '+ Ε.Α.';
+  const b = document.createElement('button');
+  b.textContent = 'Προσθήκη';
+  const go = async () => {
+    const ea = i.value.trim();
+    if (!ea) return;
+    if (!(await ensureKey())) return;
+    try {
+      await send({ action: 'addVehicle', depot: D.key, shift: shift === '—' ? '' : shift, ea: ea });
+      i.value = '';
+      await load();
+    } catch (e) { toast(e.message, true); }
+  };
+  b.onclick = go;
+  i.onkeydown = e => { if (e.key === 'Enter') go(); };
+  w.appendChild(i); w.appendChild(b);
+  return w;
+}
+
+function refreshCounts() {
+  const D = dep();
+  if (!D) return;
+  const h = document.querySelector('.top h2');
+  if (h) h.textContent = D.title + ' · ' + D.active + ' ενεργά από ' + D.total;
+  document.querySelectorAll('.col h3').forEach(el => {
+    const name = el.childNodes[0].nodeValue.replace('Αλλαγή ', '').trim();
+    const c = D.byShift[name];
+    if (c) el.querySelector('span').textContent = c.active + ' / ' + c.total;
+  });
+  const btn = document.querySelector('.dep[aria-current="true"] .c');
+  if (btn) btn.textContent = D.active + '/' + D.total;
 }
 
 function datalists() {
@@ -441,67 +583,16 @@ function datalists() {
     items.forEach(v => { const o = document.createElement('option'); o.value = v; dl.appendChild(o); });
     document.body.appendChild(dl);
   };
-  make('dl-drivers', DATA.lists.drivers);
-  make('dl-status', DATA.lists.statuses);
-  make('dl-depots', DATA.depots.map(d => d.title));
-}
-
-function addRow(D, lastShift) {
-  const tr = document.createElement('tr');
-  tr.className = 'add';
-
-  const t1 = document.createElement('td');
-  const s = document.createElement('input');
-  s.type = 'text'; s.placeholder = 'αλλαγή'; s.value = lastShift === '—' ? '' : lastShift;
-  s.setAttribute('list', 'dl-shifts');
-  t1.appendChild(s);
-
-  const t2 = document.createElement('td');
-  const e = document.createElement('input');
-  e.type = 'text'; e.placeholder = 'νέο Ε.Α.';
-  t2.appendChild(e);
-
-  const t3 = document.createElement('td');
-  t3.colSpan = 5;
-  const b = document.createElement('button');
-  b.textContent = 'Προσθήκη οχήματος';
-  const go = async () => {
-    if (!e.value.trim()) { toast('Γράψε το Ε.Α.', true); return; }
-    if (!(await ensureKey())) return;
-    try {
-      await send({ action: 'addVehicle', depot: D.key, shift: s.value.trim(), ea: e.value.trim() });
-      e.value = ''; toast('Προστέθηκε'); await load();
-    } catch (err) { toast(err.message, true); }
-  };
-  b.onclick = go;
-  e.onkeydown = ev => { if (ev.key === 'Enter') go(); };
-  t3.appendChild(b);
-
-  tr.appendChild(t1); tr.appendChild(t2); tr.appendChild(t3);
-
-  const old = document.getElementById('dl-shifts');
-  if (old) old.remove();
-  const dl = document.createElement('datalist'); dl.id = 'dl-shifts';
-  DATA.lists.shifts.forEach(v => { const o = document.createElement('option'); o.value = v; dl.appendChild(o); });
-  document.body.appendChild(dl);
-
-  return tr;
+  const names = DATA.staff.map(s => s.surname);
+  make('dl-load', DATA.lists.statuses.concat(names));
+  make('dl-officers', DATA.staff.filter(s => s.officer).map(s => s.surname));
 }
 
 /* ---------- ενέργειες ---------- */
 
-async function syncDepots() {
-  if (!(await ensureKey())) return;
-  try {
-    const r = await send({ action: 'syncDepots' });
-    toast(r.created.length ? 'Δημιουργήθηκαν: ' + r.created.join(', ') : 'Δεν έλειπε κανένα φύλλο');
-    load();
-  } catch (e) { toast(e.message, true); }
-}
-
 $('btnAddDepot').onclick = async () => {
   const n = $('newDepot').value.trim();
-  if (!n) { toast('Γράψε όνομα όρχου', true); return; }
+  if (!n) return;
   if (!(await ensureKey())) return;
   try {
     await send({ action: 'addDepot', name: n, title: n });
@@ -514,73 +605,59 @@ async function removeVehicle(r, D) {
   if (!(await ensureKey())) return;
   try {
     await send({ action: 'deleteVehicle', depot: D.key, row: r.row, ea: r.ea });
-    toast('Διαγράφηκε'); load();
+    await load();
   } catch (e) { toast(e.message, true); }
 }
 
 async function clearDay(target, label) {
-  if (!confirm('Καθαρισμός ημέρας για ' + label + ';\n\nΣβήνονται οδηγοί, καταστάσεις, θέσεις, παρατηρήσεις και οι έλεγχοι.\nΤα οχήματα και οι αλλαγές μένουν.')) return;
+  if (!confirm('Καθαρισμός για ' + label + ';\n\nΣβήνονται χρεώσεις, παρατηρήσεις και έλεγχοι.\nΤα οχήματα μένουν.')) return;
   if (!(await ensureKey())) return;
   try {
     await send({ action: 'clearDay', depot: target });
-    toast('Καθαρίστηκε'); load();
+    await load();
   } catch (e) { toast(e.message, true); }
 }
 
 /* ---------- email ---------- */
 
+let mailTarget = null;
 async function openMail(target) {
   if (!(await ensureKey())) return;
   mailTarget = target;
-
-  if (target === '*') {
-    const list = DATA.depots.filter(d => d.email);
-    if (!list.length) { toast('Κανένας όρχος δεν έχει email', true); return; }
-    $('mailHead').textContent = 'Αποστολή σε ' + list.length + ' όρχους';
-    $('mailBody').textContent = list.map(d => '• ' + d.title + '  →  ' + d.email).join('\n') +
-      '\n\nΘα σταλεί σε καθέναν το πλάνο του δικού του όρχου.';
-    $('dlgMail').showModal();
-    return;
-  }
-
   try {
     const r = await send({ action: 'previewPlan', depot: target });
-    const D = DATA.depots.find(x => x.key === target);
     $('mailHead').textContent = 'Προς: ' + (r.to || '— λείπει email —');
     $('mailBody').textContent = r.text;
+    $('mailSend').disabled = !r.to;
     $('dlgMail').showModal();
   } catch (e) { toast(e.message, true); }
 }
-
 $('mailCancel').onclick = () => $('dlgMail').close();
 $('mailSend').onclick = async () => {
   const b = $('mailSend');
   b.disabled = true; b.textContent = 'Αποστολή…';
   try {
-    const r = await send({ action: 'sendPlan', depot: mailTarget });
+    await send({ action: 'sendPlan', depot: mailTarget });
     $('dlgMail').close();
-    let m = r.sent.length ? 'Στάλθηκε: ' + r.sent.join(', ') : 'Δεν στάλθηκε τίποτα';
-    if (r.failed.length) m += ' — Απέτυχαν: ' + r.failed.join(', ');
-    toast(m, r.failed.length > 0);
+    toast('Στάλθηκε');
     load();
   } catch (e) { toast(e.message, true); }
   b.disabled = false; b.textContent = 'Αποστολή';
 };
 
-/* ---------- λίστες ---------- */
+/* ---------- λίστες & προσωπικό ---------- */
+
+const lines = t => t.split('\n').map(x => x.trim()).filter(Boolean);
 
 $('btnLists').onclick = async () => {
   if (!(await ensureKey())) return;
   $('taShifts').value = DATA.lists.shifts.join('\n');
-  $('taDrivers').value = DATA.lists.drivers.join('\n');
   $('taStatuses').value = DATA.lists.statuses
     .map(s => DATA.lists.colors[s] ? s + ' | ' + DATA.lists.colors[s] : s).join('\n');
   $('dlgLists').showModal();
 };
 $('listsCancel').onclick = () => $('dlgLists').close();
-
 $('listsSave').onclick = async () => {
-  const lines = t => t.split('\n').map(x => x.trim()).filter(Boolean);
   const statuses = [], colors = {};
   lines($('taStatuses').value).forEach(l => {
     const i = l.indexOf('|');
@@ -590,19 +667,36 @@ $('listsSave').onclick = async () => {
     if (i >= 0) colors[name] = l.slice(i + 1).trim();
   });
   try {
-    await send({
-      action: 'saveLists',
-      statuses: statuses, colors: colors,
-      drivers: lines($('taDrivers').value),
-      shifts: lines($('taShifts').value)
-    });
-    $('dlgLists').close();
-    toast('Οι λίστες αποθηκεύτηκαν');
-    load();
+    await send({ action: 'saveLists', statuses, colors, shifts: lines($('taShifts').value) });
+    $('dlgLists').close(); toast('Αποθηκεύτηκε'); load();
+  } catch (e) { toast(e.message, true); }
+};
+
+$('btnStaff').onclick = async () => {
+  if (!(await ensureKey())) return;
+  $('taStaff').value = DATA.staff.map(s =>
+    [s.surname, s.name, s.rank, s.email, s.officer ? 'ΑΞ' : ''].join(' | ').replace(/(\s*\|)+\s*$/, '')
+  ).join('\n');
+  $('dlgStaff').showModal();
+};
+$('staffCancel').onclick = () => $('dlgStaff').close();
+$('staffSave').onclick = async () => {
+  const staff = lines($('taStaff').value).map(l => {
+    const p = l.split('|').map(x => x.trim());
+    return {
+      surname: p[0] || '', name: p[1] || '', rank: p[2] || '', email: p[3] || '',
+      officer: /^(ΑΞ|AΞ|ΝΑΙ|NAI|YES|X|Χ)$/i.test(p[4] || '')
+    };
+  });
+  try {
+    await send({ action: 'saveStaff', staff });
+    $('dlgStaff').close(); toast('Αποθηκεύτηκε'); load();
   } catch (e) { toast(e.message, true); }
 };
 
 $('btnKey').onclick = askKey;
+
+/* ---------- εκκίνηση ---------- */
 
 (async function () {
   if (API_URL.indexOf('http') !== 0) {
@@ -611,11 +705,15 @@ $('btnKey').onclick = askKey;
   }
   try { await load(); }
   catch (e) { $('body').innerHTML = '<div class="warn">Δεν φόρτωσαν τα δεδομένα.<br>' + esc(e.message) + '</div>'; }
+
   setInterval(() => {
-    if (document.activeElement && ['INPUT', 'TEXTAREA'].indexOf(document.activeElement.tagName) >= 0) return;
+    if (document.hidden) return;
+    if (busy) return;
+    const a = document.activeElement;
+    if (a && ['INPUT', 'TEXTAREA'].indexOf(a.tagName) >= 0) return;
     if (document.querySelector('dialog[open]')) return;
     load().catch(() => {});
-  }, 15000);
+  }, 30000);
 })();
 </script>
 </body>
