@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Όρχοι — Ιστορικό</title>
+<style>
+:root{
+  --navy:#1b3b63; --band:#eaeff5; --paper:#fff; --line:#ccd7e2;
+  --ink:#16212e; --sub:#5f7183; --ok:#1a7a45; --bad:#b02525; --idle:#8b98a6;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  font-size:15px;line-height:1.4}
+button,input,select{font:inherit;color:inherit}
+
+header{position:sticky;top:0;z-index:20;background:var(--navy);color:#fff;
+  padding:.55rem 1rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+header h1{margin:0;font-size:.95rem;font-weight:650}
+header .sp{flex:1}
+header button{background:transparent;border:1px solid #3d5a80;color:#cddaea;
+  padding:.25rem .6rem;border-radius:4px;cursor:pointer;font-size:.8rem}
+header button:hover{border-color:#fff;color:#fff}
+
+.tabs{display:flex;gap:.3rem;padding:.7rem 1rem 0;border-bottom:1px solid var(--line)}
+.tab{background:none;border:1px solid transparent;border-bottom:none;padding:.45rem .9rem;
+  border-radius:6px 6px 0 0;cursor:pointer;font-size:.9rem;color:var(--sub);margin-bottom:-1px}
+.tab[aria-selected="true"]{background:#fff;border-color:var(--line);color:var(--ink);font-weight:600}
+
+main{padding:1rem;max-width:1500px;margin:0 auto}
+.bar{display:flex;align-items:flex-end;gap:.7rem;margin-bottom:1rem;flex-wrap:wrap}
+.fld{display:flex;flex-direction:column;gap:.1rem}
+.fld label{font-size:.68rem;font-weight:650;color:var(--sub)}
+.fld select,.fld input{padding:.35rem .5rem;border:1px solid var(--line);border-radius:5px;background:#fff}
+.fld select:focus,.fld input:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 2px rgba(27,59,99,.12)}
+
+table{width:100%;border-collapse:collapse;font-size:.875rem}
+th{text-align:left;font-size:.72rem;font-weight:650;color:#fff;background:var(--navy);
+  padding:.4rem .55rem;white-space:nowrap;position:sticky;top:2.6rem}
+td{padding:.3rem .55rem;border-bottom:1px solid var(--line);vertical-align:top}
+tr.grp td{background:var(--band);font-weight:650;font-size:.8rem;color:var(--navy)}
+.ea{font-weight:650;font-variant-numeric:tabular-nums;white-space:nowrap}
+.eal{background:none;border:none;padding:0;font:inherit;font-weight:650;color:var(--navy);
+  cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+.sw{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:.4rem}
+.sub{color:var(--sub);font-size:.8rem}
+.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));gap:.7rem;margin-bottom:1.2rem}
+.card{border:1px solid var(--line);border-radius:6px;padding:.7rem .85rem}
+.card .k{font-size:.7rem;font-weight:650;color:var(--sub)}
+.card .v{font-size:1.35rem;font-weight:650;font-variant-numeric:tabular-nums}
+.card .x{font-size:.78rem;color:var(--sub)}
+
+.track{height:6px;background:var(--band);border-radius:3px;overflow:hidden;min-width:5rem}
+.fill{height:100%;background:var(--ok)}
+
+.note{margin:1.5rem 0;padding:.85rem 1rem;border-radius:6px;background:var(--band);
+  border-left:4px solid var(--idle);color:var(--sub)}
+.note.bad{border-left-color:var(--bad);color:var(--bad)}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Όρχοι — Ιστορικό</h1>
+  <div class="sp"></div>
+  <button id="back">← Διαχείριση</button>
+</header>
+
+<div class="tabs" role="tablist">
+  <button class="tab" data-v="day" role="tab">Εικόνα ημέρας</button>
+  <button class="tab" data-v="veh" role="tab">Όχημα</button>
+  <button class="tab" data-v="sum" role="tab">Σύνοψη</button>
+</div>
+
+<main id="main"><div class="note">Φόρτωση…</div></main>
+
+<script>
+const API_URL = 'ΒΑΛΕ_ΕΔΩ_ΤΟ_EXEC_URL';
+
+let IX = null;
+let view = 'day';
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const isStatus = v => v && IX.statuses.indexOf(v) >= 0;
+const colorOf = v => v ? (isStatus(v) ? (IX.colors[v] || '#8b98a6') : '#1a7a45') : '#1a7a45';
+
+async function get(q) {
+  const r = await fetch(API_URL + '?' + q + '&t=' + Date.now());
+  const d = await r.json();
+  if (!d.ok) throw new Error(d.error);
+  return d;
+}
+
+function tabs() {
+  document.querySelectorAll('.tab').forEach(b => {
+    b.setAttribute('aria-selected', b.dataset.v === view);
+    b.onclick = () => { view = b.dataset.v; tabs(); draw(); };
+  });
+}
+
+function el(tag, cls, html) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (html != null) e.innerHTML = html;
+  return e;
+}
+
+/* ---------- εικόνα ημέρας ---------- */
+
+async function drawDay() {
+  const main = $('main');
+  main.innerHTML = '';
+
+  if (!IX.days.length) {
+    main.appendChild(el('div', 'note', 'Το αρχείο είναι ακόμα άδειο. Γεμίζει μόνο του στο τέλος κάθε βάρδιας.'));
+    return;
+  }
+
+  const bar = el('div', 'bar');
+  const f = el('div', 'fld');
+  f.appendChild(el('label', null, 'Ημερομηνία'));
+  const sel = document.createElement('select');
+  IX.days.forEach(d => {
+    const o = document.createElement('option');
+    o.value = d.day;
+    o.textContent = d.day + (d.hours ? '  ·  ' + d.hours : '') + '   (' + d.active + '/' + d.total + ' ενεργά)';
+    sel.appendChild(o);
+  });
+  f.appendChild(sel);
+  bar.appendChild(f);
+  main.appendChild(bar);
+
+  const box = el('div');
+  main.appendChild(box);
+
+  async function show(day) {
+    box.innerHTML = '<div class="note">Φόρτωση…</div>';
+    let d;
+    try { d = await get('view=day&day=' + encodeURIComponent(day)); }
+    catch (e) { box.innerHTML = '<div class="note bad">' + esc(e.message) + '</div>'; return; }
+
+    box.innerHTML = '';
+    const t = document.createElement('table');
+    t.innerHTML = '<thead><tr><th style="width:5.5rem">Ε.Α.</th><th style="width:4rem">Αλλαγή</th>' +
+      '<th style="width:18rem">Χρέωση</th><th>Παρατηρήσεις</th><th style="width:10rem">Δήλωσε</th></tr></thead>';
+    const tb = document.createElement('tbody');
+
+    let last = null;
+    d.rows.forEach(r => {
+      if (r.depot !== last) {
+        last = r.depot;
+        const tr = el('tr', 'grp');
+        tr.innerHTML = '<td colspan="5">' + esc(r.depot) +
+          (r.officer ? ' <span class="sub">· Αξ.Υπ. ' + esc(r.officer) + '</span>' : '') +
+          (r.check ? ' <span class="sub">· έλεγχος ' + esc(r.check) + '</span>' : '') + '</td>';
+        tb.appendChild(tr);
+      }
+      const tr = document.createElement('tr');
+      tr.innerHTML =
+        '<td class="ea"><span class="sw" style="background:' + colorOf(r.load) + '"></span>' + esc(r.ea) + '</td>' +
+        '<td>' + esc(r.shift) + '</td>' +
+        '<td>' + (r.load ? esc(r.load) : '<span class="sub">—</span>') + '</td>' +
+        '<td class="sub">' + esc(r.notes) + '</td>' +
+        '<td class="sub">' + esc(r.by) + (r.time ? ' ' + esc(r.time) : '') + '</td>';
+      tb.appendChild(tr);
+    });
+    t.appendChild(tb);
+    box.appendChild(t);
+  }
+
+  sel.onchange = () => show(sel.value);
+  show(IX.days[0].day);
+}
+
+/* ---------- όχημα ---------- */
+
+async function drawVeh(preset) {
+  const main = $('main');
+  main.innerHTML = '';
+
+  const bar = el('div', 'bar');
+  const f = el('div', 'fld');
+  f.appendChild(el('label', null, 'Ε.Α. οχήματος'));
+  const inp = document.createElement('input');
+  inp.setAttribute('list', 'dl-ea');
+  inp.placeholder = 'π.χ. 32411';
+  inp.value = preset || '';
+  f.appendChild(inp);
+  bar.appendChild(f);
+  main.appendChild(bar);
+
+  const dl = document.createElement('datalist');
+  dl.id = 'dl-ea';
+  IX.vehicles.forEach(v => { const o = document.createElement('option'); o.value = v; dl.appendChild(o); });
+  main.appendChild(dl);
+
+  const box = el('div');
+  main.appendChild(box);
+
+  async function show(ea) {
+    if (!ea) { box.innerHTML = ''; return; }
+    box.innerHTML = '<div class="note">Φόρτωση…</div>';
+    let d;
+    try { d = await get('view=vehicle&ea=' + encodeURIComponent(ea)); }
+    catch (e) { box.innerHTML = '<div class="note bad">' + esc(e.message) + '</div>'; return; }
+
+    box.innerHTML = '';
+    if (!d.rows.length) {
+      box.appendChild(el('div', 'note', 'Δεν υπάρχει καταγραφή για το ' + esc(ea) + '.'));
+      return;
+    }
+
+    const s = d.stats;
+    const cards = el('div', 'cards');
+    const mk = (k, v, x) => {
+      const c = el('div', 'card');
+      c.appendChild(el('div', 'k', k));
+      c.appendChild(el('div', 'v', v));
+      if (x) c.appendChild(el('div', 'x', x));
+      cards.appendChild(c);
+    };
+    mk('Καταγεγραμμένες βάρδιες', s.days);
+    mk('Εκτός λειτουργίας', s.off, s.days ? Math.round(100 * s.off / s.days) + '% των βαρδιών' : '');
+    const topD = Object.keys(s.byDriver).sort((a, b) => s.byDriver[b] - s.byDriver[a])[0];
+    mk('Συχνότερος οδηγός', topD || '—', topD ? s.byDriver[topD] + ' φορές' : '');
+    const topS = Object.keys(s.byStatus).sort((a, b) => s.byStatus[b] - s.byStatus[a])[0];
+    mk('Συχνότερη κατάσταση', topS || '—', topS ? s.byStatus[topS] + ' φορές' : '');
+    box.appendChild(cards);
+
+    const t = document.createElement('table');
+    t.innerHTML = '<thead><tr><th style="width:8rem">Ημερομηνία</th><th style="width:8rem">Ωράριο</th>' +
+      '<th style="width:10rem">Όρχος</th><th style="width:16rem">Χρέωση</th><th>Παρατηρήσεις</th></tr></thead>';
+    const tb = document.createElement('tbody');
+    d.rows.forEach(r => {
+      const tr = document.createElement('tr');
+      tr.innerHTML =
+        '<td>' + esc(r.day) + '</td><td class="sub">' + esc(r.hours) + '</td>' +
+        '<td>' + esc(r.depot) + '</td>' +
+        '<td><span class="sw" style="background:' + colorOf(r.load) + '"></span>' +
+        (r.load ? esc(r.load) : '<span class="sub">ενεργό</span>') + '</td>' +
+        '<td class="sub">' + esc(r.notes) + '</td>';
+      tb.appendChild(tr);
+    });
+    t.appendChild(tb);
+    box.appendChild(t);
+  }
+
+  inp.onchange = () => show(inp.value.trim());
+  inp.onkeydown = e => { if (e.key === 'Enter') show(inp.value.trim()); };
+  if (preset) show(preset);
+}
+
+/* ---------- σύνοψη ---------- */
+
+function drawSum() {
+  const main = $('main');
+  main.innerHTML = '';
+
+  if (!IX.days.length) {
+    main.appendChild(el('div', 'note', 'Το αρχείο είναι ακόμα άδειο.'));
+    return;
+  }
+
+  const names = [];
+  IX.days.forEach(d => Object.keys(d.depots).forEach(k => { if (names.indexOf(k) < 0) names.push(k); }));
+  names.sort();
+
+  const t = document.createElement('table');
+  t.innerHTML = '<thead><tr><th style="width:7rem">Ημερομηνία</th><th style="width:7rem">Ωράριο</th>' +
+    names.map(n => '<th class="num">' + esc(n) + '</th>').join('') +
+    '<th class="num" style="width:7rem">Σύνολο</th></tr></thead>';
+  const tb = document.createElement('tbody');
+
+  IX.days.forEach(d => {
+    const tr = document.createElement('tr');
+    let html = '<td>' + esc(d.day) + '</td><td class="sub">' + esc(d.hours) + '</td>';
+    names.forEach(n => {
+      const p = d.depots[n];
+      html += '<td class="num">' + (p ? p.active + ' / ' + p.total : '<span class="sub">—</span>') + '</td>';
+    });
+    const pct = d.total ? Math.round(100 * d.active / d.total) : 0;
+    html += '<td class="num"><b>' + d.active + ' / ' + d.total + '</b>' +
+      '<div class="track"><div class="fill" style="width:' + pct + '%"></div></div></td>';
+    tr.innerHTML = html;
+    tb.appendChild(tr);
+  });
+
+  t.appendChild(tb);
+  main.appendChild(t);
+  main.appendChild(el('div', 'note', 'Κάθε κελί δείχνει ενεργά προς σύνολο οχημάτων εκείνης της βάρδιας.'));
+}
+
+function draw() {
+  if (view === 'day') drawDay();
+  else if (view === 'veh') drawVeh();
+  else drawSum();
+}
+
+$('back').onclick = () => { location.href = 'admin.html'; };
+
+(async function () {
+  tabs();
+  if (API_URL.indexOf('http') !== 0) {
+    $('main').innerHTML = '<div class="note bad">Λείπει η διεύθυνση του API. Συμπλήρωσε το API_URL στο istoriko.html.</div>';
+    return;
+  }
+  try { IX = await get('view=archive'); draw(); }
+  catch (e) { $('main').innerHTML = '<div class="note bad">' + esc(e.message) + '</div>'; }
+})();
+</script>
+</body>
+</html>
