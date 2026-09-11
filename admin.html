@@ -13,111 +13,122 @@
 body{margin:0;background:var(--paper);color:var(--ink);
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   font-size:15px;line-height:1.4}
-button,input,textarea{font:inherit;color:inherit}
+button,input,textarea,select{font:inherit;color:inherit}
 
 header{position:sticky;top:0;z-index:30;background:var(--navy);color:#fff;
-  padding:.6rem 1.1rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
-header h1{margin:0;font-size:1rem;font-weight:650;white-space:nowrap}
-header .f{display:flex;align-items:center;gap:.35rem}
-header .f span{font-size:.75rem;color:#9fb1c6}
-header input{padding:.25rem .45rem;border:1px solid #3d5a80;border-radius:4px;
-  background:#12263f;color:#fff}
+  padding:.55rem 1rem;display:flex;align-items:center;gap:.9rem;flex-wrap:wrap}
+header h1{margin:0;font-size:.95rem;font-weight:650;white-space:nowrap}
+header .f{display:flex;align-items:center;gap:.3rem}
+header .f span{font-size:.72rem;color:#9fb1c6}
+header input{padding:.22rem .4rem;border:1px solid #3d5a80;border-radius:4px;
+  background:#12263f;color:#fff;color-scheme:dark}
 header input:focus{outline:none;border-color:#fff}
-header input[readonly]{opacity:.75;cursor:default}
+header .nav{background:#12263f;border:1px solid #3d5a80;color:#cddaea;width:1.6rem;
+  padding:.18rem 0;border-radius:4px;cursor:pointer;line-height:1}
+header .nav:hover{border-color:#fff;color:#fff}
 header .sp{flex:1}
-header .st{font-size:.72rem;color:#9fb1c6}
-header button{background:transparent;border:1px solid #3d5a80;color:#cddaea;
-  padding:.28rem .65rem;border-radius:4px;cursor:pointer;font-size:.8125rem;white-space:nowrap}
-header button:hover{border-color:#fff;color:#fff}
+header .st{font-size:.7rem;color:#9fb1c6;min-width:3.5rem;text-align:right}
+header button.b{background:transparent;border:1px solid #3d5a80;color:#cddaea;
+  padding:.25rem .6rem;border-radius:4px;cursor:pointer;font-size:.8rem;white-space:nowrap}
+header button.b:hover{border-color:#fff;color:#fff}
 
-.layout{display:flex;align-items:flex-start;gap:1.1rem;padding:1rem;max-width:1800px;margin:0 auto}
-aside{flex:0 0 15rem;position:sticky;top:4rem}
-aside h2{font-size:.72rem;font-weight:650;color:var(--sub);margin:0 0 .4rem}
+.layout{display:flex;align-items:flex-start;gap:1rem;padding:.9rem;max-width:1900px;margin:0 auto}
+aside{flex:0 0 14rem;position:sticky;top:3.7rem}
+aside h2{font-size:.7rem;font-weight:650;color:var(--sub);margin:0 0 .35rem}
 .dep{display:block;width:100%;text-align:left;background:none;border:1px solid transparent;
-  padding:.45rem .6rem;border-radius:5px;cursor:pointer;margin-bottom:.1rem}
+  padding:.4rem .55rem;border-radius:5px;cursor:pointer;margin-bottom:.08rem}
 .dep:hover{background:var(--band)}
 .dep[aria-current="true"]{background:var(--band);border-color:var(--line);font-weight:600}
-.dep .n{display:flex;justify-content:space-between;gap:.5rem}
-.dep .c{font-size:.8125rem;color:var(--sub);font-variant-numeric:tabular-nums;font-weight:400}
-.dep .m{font-size:.72rem;color:var(--idle)}
+.dep .n{display:flex;justify-content:space-between;gap:.4rem}
+.dep .c{font-size:.8rem;color:var(--sub);font-variant-numeric:tabular-nums;font-weight:400}
+.dep .m{font-size:.7rem;color:var(--idle)}
 .dep .m.ok{color:var(--ok)}
-.addbox{margin-top:.8rem;padding-top:.6rem;border-top:1px solid var(--line);display:flex;gap:.3rem}
-.addbox input{flex:1;min-width:0;padding:.35rem .45rem;border:1px solid var(--line);border-radius:4px}
-.addbox button{background:var(--navy);color:#fff;border:none;padding:.35rem .6rem;border-radius:4px;cursor:pointer}
+.addbox{margin-top:.7rem;padding-top:.55rem;border-top:1px solid var(--line);display:flex;gap:.25rem}
+.addbox input{flex:1;min-width:0;padding:.3rem .4rem;border:1px solid var(--line);border-radius:4px}
+.addbox button{background:var(--navy);color:#fff;border:none;padding:.3rem .55rem;border-radius:4px;cursor:pointer}
 
 section{flex:1;min-width:0}
-.top{display:flex;align-items:flex-end;gap:.75rem;margin-bottom:.8rem;flex-wrap:wrap}
-.top h2{margin:0;font-size:1.1rem;font-weight:650}
-.fld{display:flex;flex-direction:column;gap:.15rem}
-.fld label{font-size:.7rem;font-weight:650;color:var(--sub)}
-.fld input{padding:.35rem .5rem;border:1px solid var(--line);border-radius:5px}
+.top{display:flex;align-items:flex-end;gap:.65rem;margin-bottom:.7rem;flex-wrap:wrap}
+.top h2{margin:0;font-size:1.05rem;font-weight:650}
+.fld{display:flex;flex-direction:column;gap:.1rem}
+.fld label{font-size:.68rem;font-weight:650;color:var(--sub)}
+.fld input{padding:.3rem .45rem;border:1px solid var(--line);border-radius:5px}
 .fld input:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 2px rgba(27,59,99,.12)}
 .sendwrap{display:flex;align-items:center;gap:.3rem}
-.sendbtn{background:#fff;border:1px solid var(--line);padding:.35rem .7rem;border-radius:5px;
-  cursor:pointer;font-size:.8125rem;white-space:nowrap}
+.sendbtn{background:#fff;border:1px solid var(--line);padding:.3rem .65rem;border-radius:5px;
+  cursor:pointer;font-size:.8rem;white-space:nowrap}
 .sendbtn:hover{border-color:var(--navy)}
 .sendbtn[disabled]{opacity:.4;cursor:default}
-.sentmark{font-size:.72rem;color:var(--sub);white-space:nowrap}
+.sentmark{font-size:.7rem;color:var(--sub);white-space:nowrap}
 
-.warn{margin-bottom:.8rem;padding:.6rem .9rem;border-radius:5px;background:#fbeaea;
-  border-left:4px solid var(--bad);color:var(--bad);font-size:.85rem}
-.note{margin-bottom:.8rem;padding:.6rem .9rem;border-radius:5px;background:var(--band);
-  border-left:4px solid var(--idle);color:var(--sub);font-size:.85rem}
+.warn{margin-bottom:.7rem;padding:.55rem .85rem;border-radius:5px;background:#fbeaea;
+  border-left:4px solid var(--bad);color:var(--bad);font-size:.83rem}
+.note{margin-bottom:.7rem;padding:.55rem .85rem;border-radius:5px;background:var(--band);
+  border-left:4px solid var(--idle);color:var(--sub);font-size:.83rem}
 
-.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:.9rem;align-items:start}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:.75rem;align-items:start}
 .col{border:1px solid var(--line);border-radius:6px;overflow:hidden}
-.col h3{margin:0;background:var(--navy);color:#fff;padding:.4rem .6rem;font-size:.8125rem;
-  font-weight:650;display:flex;justify-content:space-between;gap:.5rem}
+.col h3{margin:0;background:var(--navy);color:#fff;padding:.35rem .55rem;font-size:.78rem;
+  font-weight:650;display:flex;justify-content:space-between;gap:.4rem}
 .col h3 span{font-weight:400;color:#b9c7d8}
-.veh{display:flex;align-items:center;gap:.4rem;padding:.1rem .35rem .1rem .5rem;
+.veh{display:flex;align-items:center;gap:.3rem;padding:.06rem .25rem .06rem .4rem;
   border-bottom:1px solid #eef2f6}
-.veh:last-child{border-bottom:none}
-.bar{width:3px;align-self:stretch;min-height:1.6rem;border-radius:2px;background:var(--ok);flex:0 0 auto}
-.ea{font-weight:650;font-variant-numeric:tabular-nums;font-size:.875rem;
-  min-width:3.6rem;letter-spacing:.01em}
-.veh input{flex:1;min-width:0;padding:.3rem .35rem;border:1px solid transparent;
-  border-radius:4px;background:transparent;font-size:.875rem}
-.veh input:hover{border-color:var(--line)}
-.veh input:focus{outline:none;border-color:var(--navy);background:#fff;box-shadow:0 0 0 2px rgba(27,59,99,.12)}
-.pen{background:none;border:none;cursor:pointer;color:var(--idle);padding:.15rem .25rem;
-  border-radius:3px;font-size:.8rem;line-height:1}
+.bar{width:3px;align-self:stretch;min-height:1.5rem;border-radius:2px;background:var(--ok);flex:0 0 auto}
+.ea{font-weight:650;font-variant-numeric:tabular-nums;font-size:.83rem;
+  min-width:3.1rem;letter-spacing:0}
+.veh input.load{flex:1;min-width:0;padding:.26rem .3rem;border:1px solid transparent;
+  border-radius:4px;background:transparent;font-size:.8rem}
+.veh input.load:hover{border-color:var(--line)}
+.veh input.load:focus{outline:none;border-color:var(--navy);background:#fff;box-shadow:0 0 0 2px rgba(27,59,99,.12)}
+.pen{background:none;border:none;cursor:pointer;color:#c3ccd5;padding:.1rem .2rem;
+  border-radius:3px;font-size:.72rem;line-height:1}
 .pen:hover{color:var(--navy);background:var(--band)}
 .pen.has{color:var(--navy)}
-.sig{width:6px;height:6px;border-radius:50%;background:var(--navy);opacity:.55;flex:0 0 auto}
-.sig.none{background:transparent}
-.notesrow{padding:.1rem .5rem .35rem 1.3rem;border-bottom:1px solid #eef2f6}
-.notesrow input{width:100%;padding:.3rem .4rem;border:1px solid var(--line);
-  border-radius:4px;font-size:.8125rem;background:#fff}
-.del{background:none;border:none;color:#c8d0d8;cursor:pointer;padding:.15rem .2rem;font-size:.75rem}
+.sig{width:5px;height:5px;border-radius:50%;background:var(--navy);opacity:.5;flex:0 0 auto}
+.del{background:none;border:none;color:#d3dae1;cursor:pointer;padding:.1rem .18rem;font-size:.7rem}
 .del:hover{color:var(--bad)}
-.addveh{display:flex;gap:.3rem;padding:.4rem .5rem;background:var(--band)}
-.addveh input{flex:1;min-width:0;padding:.3rem .4rem;border:1px solid var(--line);border-radius:4px;font-size:.8125rem}
-.addveh button{background:var(--navy);color:#fff;border:none;padding:.3rem .6rem;border-radius:4px;cursor:pointer;font-size:.8125rem}
+.notesrow{padding:0 .4rem .2rem 1.05rem;border-bottom:1px solid #eef2f6}
+.notesrow input{width:100%;padding:.18rem .3rem;border:1px solid var(--line);
+  border-radius:3px;font-size:.72rem;background:#fff;color:var(--sub)}
+.notesrow input:focus{outline:none;border-color:var(--navy);color:var(--ink)}
+.addveh{display:flex;gap:.25rem;padding:.35rem .4rem;background:var(--band)}
+.addveh input{flex:1;min-width:0;padding:.26rem .35rem;border:1px solid var(--line);border-radius:4px;font-size:.8rem}
+.addveh button{background:var(--navy);color:#fff;border:none;padding:.26rem .5rem;border-radius:4px;cursor:pointer;font-size:.8rem}
 
-.foot{margin-top:1rem;display:flex;gap:.4rem;justify-content:flex-end}
-.foot button{background:#fff;border:1px solid #e3c9c9;color:#8a5555;padding:.35rem .7rem;
-  border-radius:5px;cursor:pointer;font-size:.8125rem}
+.foot{margin-top:.9rem;display:flex;gap:.35rem;justify-content:flex-end}
+.foot button{background:#fff;border:1px solid #e3c9c9;color:#8a5555;padding:.3rem .65rem;
+  border-radius:5px;cursor:pointer;font-size:.8rem}
 .foot button:hover{border-color:var(--bad);color:var(--bad)}
 
-dialog{border:none;border-radius:10px;padding:0;max-width:46rem;width:94vw;
+dialog{border:none;border-radius:10px;padding:0;max-width:44rem;width:94vw;
   box-shadow:0 10px 40px rgba(0,0,0,.25)}
 dialog::backdrop{background:rgba(10,20,35,.45)}
-.dh{background:var(--navy);color:#fff;padding:.75rem 1.1rem;font-weight:650}
-.db{padding:1.1rem;max-height:70vh;overflow:auto}
-.df{padding:.7rem 1.1rem;border-top:1px solid var(--line);display:flex;gap:.5rem;justify-content:flex-end}
-.df button{padding:.45rem .95rem;border-radius:5px;border:1px solid var(--line);background:#fff;cursor:pointer}
+.dh{background:var(--navy);color:#fff;padding:.7rem 1rem;font-weight:650}
+.db{padding:1rem;max-height:70vh;overflow:auto}
+.df{padding:.65rem 1rem;border-top:1px solid var(--line);display:flex;gap:.5rem;justify-content:flex-end}
+.df button{padding:.42rem .9rem;border-radius:5px;border:1px solid var(--line);background:#fff;cursor:pointer}
 .df button.go{background:var(--navy);color:#fff;border-color:var(--navy)}
-.grp{margin-bottom:1.1rem}
-.grp label{display:block;font-size:.72rem;font-weight:650;color:var(--sub);margin-bottom:.2rem}
-.grp .hint{font-size:.8125rem;color:var(--sub);margin-bottom:.3rem}
-textarea{width:100%;min-height:7rem;padding:.5rem .6rem;border:1px solid var(--line);
-  border-radius:5px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.85rem;line-height:1.6}
+.grp{margin-bottom:1rem}
+.grp label{display:block;font-size:.7rem;font-weight:650;color:var(--sub);margin-bottom:.2rem}
+.grp .hint{font-size:.8rem;color:var(--sub);margin-bottom:.35rem}
+textarea{width:100%;min-height:6rem;padding:.45rem .55rem;border:1px solid var(--line);
+  border-radius:5px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.83rem;line-height:1.6}
 textarea:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 2px rgba(27,59,99,.12)}
-pre{white-space:pre-wrap;background:var(--band);padding:.9rem;border-radius:5px;
-  font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;margin:0}
+pre{white-space:pre-wrap;background:var(--band);padding:.85rem;border-radius:5px;
+  font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.78rem;margin:0}
 
-.toast{position:fixed;right:1.1rem;bottom:1.1rem;background:var(--navy);color:#fff;
-  padding:.6rem 1rem;border-radius:5px;font-size:.85rem;z-index:60;
+.strow{display:flex;align-items:center;gap:.45rem;margin-bottom:.35rem}
+.strow input[type=text]{flex:1;padding:.4rem .5rem;border:1px solid var(--line);border-radius:5px}
+.strow input[type=color]{width:2.6rem;height:2.1rem;padding:.1rem;border:1px solid var(--line);
+  border-radius:5px;background:#fff;cursor:pointer}
+.strow button{background:none;border:none;color:var(--idle);cursor:pointer;padding:.2rem .35rem}
+.strow button:hover{color:var(--bad)}
+.addst{background:#fff;border:1px dashed var(--line);border-radius:5px;padding:.4rem .7rem;
+  cursor:pointer;font-size:.85rem;color:var(--sub);width:100%}
+.addst:hover{border-color:var(--navy);color:var(--navy)}
+
+.toast{position:fixed;right:1rem;bottom:1rem;background:var(--navy);color:#fff;
+  padding:.55rem .95rem;border-radius:5px;font-size:.83rem;z-index:60;
   opacity:0;pointer-events:none;transition:opacity .16s;max-width:26rem}
 .toast.show{opacity:1}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -127,14 +138,25 @@ pre{white-space:pre-wrap;background:var(--band);padding:.9rem;border-radius:5px;
 
 <header>
   <h1 id="title">Όρχοι</h1>
-  <div class="f"><span>Ημερομηνία</span><input id="fDay" size="10"></div>
-  <div class="f"><span>Ωράριο</span><input id="fHours" size="11" readonly title="Βγαίνει από την ημερομηνία"></div>
+  <div class="f">
+    <button class="nav" id="dPrev" title="Προηγούμενη μέρα">‹</button>
+    <input id="fDay" type="date">
+    <button class="nav" id="dNext" title="Επόμενη μέρα">›</button>
+  </div>
+  <div class="f"><span>Ωράριο</span><input id="fHours" size="11" list="dl-hours"></div>
   <div class="sp"></div>
   <span class="st" id="sync"></span>
-  <button id="btnStaff">Προσωπικό</button>
-  <button id="btnLists">Λίστες</button>
-  <button id="btnKey">Κωδικός</button>
+  <button class="b" id="btnHist">Ιστορικό</button>
+  <button class="b" id="btnStaff">Προσωπικό</button>
+  <button class="b" id="btnLists">Λίστες</button>
+  <button class="b" id="btnKey">Κωδικός</button>
 </header>
+
+<datalist id="dl-hours">
+  <option value="05:30-13:00"></option>
+  <option value="13:00-21:00"></option>
+  <option value="21:00-05:30"></option>
+</datalist>
 
 <div class="layout">
   <aside>
@@ -154,12 +176,14 @@ pre{white-space:pre-wrap;background:var(--band);padding:.9rem;border-radius:5px;
     <div class="grp">
       <label for="taShifts">Αλλαγές</label>
       <div class="hint">Με τη σειρά που θέλεις να εμφανίζονται. Μία ανά γραμμή.</div>
-      <textarea id="taShifts" style="min-height:5rem"></textarea>
+      <textarea id="taShifts" style="min-height:4.5rem"></textarea>
     </div>
     <div class="grp">
-      <label for="taStatuses">Καταστάσεις</label>
-      <div class="hint">Κάθε κατάσταση αποκλείει οδηγό. Για χρώμα: ΣΥΝΕΡΓΕΙΟ | #b06a00</div>
-      <textarea id="taStatuses"></textarea>
+      <label>Καταστάσεις</label>
+      <div class="hint">Κάθε κατάσταση αποκλείει οδηγό και δεν μετράει στα ενεργά.
+        Πάτα το τετράγωνο για χρώμα.</div>
+      <div id="stList"></div>
+      <button class="addst" id="stAdd">+ Νέα κατάσταση</button>
     </div>
   </div>
   <div class="df"><button id="listsCancel">Ακύρωση</button><button class="go" id="listsSave">Αποθήκευση</button></div>
@@ -171,9 +195,8 @@ pre{white-space:pre-wrap;background:var(--band);padding:.9rem;border-radius:5px;
     <div class="grp">
       <div class="hint">Μία γραμμή ανά άτομο, χωρισμένα με κάθετο:<br>
         <b>ΕΠΩΝΥΜΟ | ΟΝΟΜΑ | ΒΑΘΜΟΣ | EMAIL | ΑΞ</b><br>
-        Αρκεί το επώνυμο. Γράψε <b>ΑΞ</b> στο τέλος για όποιον μπορεί να είναι αξιωματικός υπηρεσίας.
-        Το ίδιο φαίνεται και στο φύλλο _ΠΡΟΣΩΠΙΚΟ.</div>
-      <textarea id="taStaff" style="min-height:16rem"></textarea>
+        Αρκεί το επώνυμο. Γράψε <b>ΑΞ</b> στο τέλος για όποιον μπορεί να είναι αξιωματικός υπηρεσίας.</div>
+      <textarea id="taStaff" style="min-height:15rem"></textarea>
     </div>
   </div>
   <div class="df"><button id="staffCancel">Ακύρωση</button><button class="go" id="staffSave">Αποθήκευση</button></div>
@@ -194,27 +217,39 @@ let DATA = null;
 let depot = localStorage.getItem('orxoi.admin.depot') || '';
 let key   = localStorage.getItem('orxoi.admin.key')   || '';
 let openNotes = {};
-let busy = 0;
+let pending = 0;
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const isStatus = v => v && DATA.lists.statuses.indexOf(v) >= 0;
 const colorOf = v => isStatus(v) ? (DATA.lists.colors[v] || '#8b98a6') : '#1a7a45';
 
-async function load(silent) {
-  const q = depot ? '&depot=' + encodeURIComponent(depot) : '';
-  const r = await fetch(API_URL + '?t=' + Date.now() + q);
+/* ---------- ημερομηνία ---------- */
+const toISO = g => {
+  const m = String(g || '').match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  return m ? m[3] + '-' + ('0' + m[2]).slice(-2) + '-' + ('0' + m[1]).slice(-2) : '';
+};
+const toGR = iso => {
+  const m = String(iso || '').match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  return m ? (+m[3]) + '/' + (+m[2]) + '/' + m[1] : '';
+};
+
+/* ---------- επικοινωνία ---------- */
+
+async function load() {
+  const r = await fetch(API_URL + '?all=1&t=' + Date.now());
   const d = await r.json();
   if (!d.ok) throw new Error(d.error);
   DATA = d;
-  depot = d.current || '';
+  if (!depot || !d.depots.some(x => x.key === depot)) depot = d.depots.length ? d.depots[0].key : '';
   render();
-  $('sync').textContent = new Date().toLocaleTimeString('el-GR');
+  $('sync').textContent = new Date().toLocaleTimeString('el-GR', { hour: '2-digit', minute: '2-digit' });
 }
 
-async function send(p) {
+/** Στέλνει στο παρασκήνιο. Η οθόνη έχει ήδη ενημερωθεί. */
+async function send(p, onFail) {
   p.key = key;
-  busy++;
+  pending++;
   try {
     const r = await fetch(API_URL, {
       method: 'POST',
@@ -224,7 +259,11 @@ async function send(p) {
     const d = await r.json();
     if (!d.ok) throw new Error(d.error);
     return d;
-  } finally { busy--; }
+  } catch (e) {
+    if (onFail) onFail(e);
+    else toast(e.message, true);
+    return null;
+  } finally { pending--; }
 }
 
 function toast(m, bad) {
@@ -232,34 +271,26 @@ function toast(m, bad) {
   t.textContent = m;
   t.style.background = bad ? '#b02525' : '';
   t.classList.add('show');
-  clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('show'), bad ? 4000 : 1800);
+  clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('show'), bad ? 4500 : 1600);
 }
 
 async function askKey() {
   const v = prompt('Κωδικός διαχειριστή (φύλλο _ΡΥΘΜΙΣΕΙΣ):', key || '');
   if (v === null) return false;
   key = v.trim();
-  try {
-    await send({ action: 'checkKey' });
-    localStorage.setItem('orxoi.admin.key', key);
-    toast('Ο κωδικός ισχύει');
-    return true;
-  } catch (e) {
-    key = ''; localStorage.removeItem('orxoi.admin.key');
-    toast(e.message, true);
-    return false;
-  }
+  const r = await send({ action: 'checkKey' }, e => toast(e.message, true));
+  if (r) { localStorage.setItem('orxoi.admin.key', key); toast('Ο κωδικός ισχύει'); return true; }
+  key = ''; localStorage.removeItem('orxoi.admin.key');
+  return false;
 }
 const ensureKey = async () => key ? true : askKey();
 
 const dep = () => DATA.depots.find(d => d.key === depot);
 
-function recount() {
-  const D = dep();
+function recount(D) {
+  D = D || dep();
   if (!D || !D.rows) return;
-  D.total = D.rows.length;
-  D.active = 0;
-  D.byShift = {};
+  D.total = D.rows.length; D.active = 0; D.byShift = {};
   D.rows.forEach(r => {
     const s = r.shift || '—';
     D.byShift[s] = D.byShift[s] || { total: 0, active: 0 };
@@ -268,34 +299,53 @@ function recount() {
   });
 }
 
-/* ---------- ημερομηνία ---------- */
+/* ---------- κεφαλίδα ---------- */
+
+async function setDay(iso) {
+  if (!iso) return;
+  if (!(await ensureKey())) return;
+  const gr = toGR(iso);
+  DATA.day = gr;
+  $('fDay').value = iso;
+  const r = await send({ action: 'setSetting', name: 'ΗΜΕΡΟΜΗΝΙΑ', value: gr });
+  if (r) {
+    DATA.hours = r.hours || '';
+    $('fHours').value = DATA.hours;
+    if (!DATA.hours) toast('Προσοχή: εκείνη η μέρα είναι αδιάθετο', true);
+  }
+}
+
+$('fDay').onchange = () => setDay($('fDay').value);
+$('dPrev').onclick = () => shiftDay(-1);
+$('dNext').onclick = () => shiftDay(1);
+
+function shiftDay(n) {
+  const iso = $('fDay').value || toISO(DATA.day);
+  if (!iso) return;
+  const d = new Date(iso + 'T12:00:00');
+  d.setDate(d.getDate() + n);
+  setDay(d.toISOString().slice(0, 10));
+}
 
 (function () {
-  const el = $('fDay');
+  const el = $('fHours');
   let before = '';
   el.onfocus = () => { before = el.value; };
   el.onblur = async () => {
     if (el.value === before) return;
     if (!(await ensureKey())) { el.value = before; return; }
-    try {
-      const r = await send({ action: 'setSetting', name: 'ΗΜΕΡΟΜΗΝΙΑ', value: el.value.trim() });
-      before = el.value;
-      DATA.day = el.value.trim();
-      DATA.hours = r.hours || '';
-      $('fHours').value = DATA.hours;
-      if (!DATA.hours) toast('Προσοχή: εκείνη η μέρα είναι αδιάθετο', true);
-    } catch (e) { el.value = before; toast(e.message, true); }
+    DATA.hours = el.value.trim(); before = el.value;
+    send({ action: 'setSetting', name: 'ΩΡΑΡΙΟ', value: DATA.hours });
   };
-  el.onkeydown = e => { if (e.key === 'Enter') el.blur(); if (e.key === 'Escape') { el.value = before; el.blur(); } };
+  el.onkeydown = e => { if (e.key === 'Enter') el.blur(); };
 })();
 
 /* ---------- εμφάνιση ---------- */
 
 function render() {
-  const act = document.activeElement;
   $('title').textContent = DATA.title || 'Όρχοι';
-  if (act !== $('fDay')) $('fDay').value = DATA.day;
-  $('fHours').value = DATA.hours || 'αδιάθετο';
+  if (document.activeElement !== $('fDay')) $('fDay').value = toISO(DATA.day);
+  if (document.activeElement !== $('fHours')) $('fHours').value = DATA.hours || '';
 
   const deps = $('deps'); deps.innerHTML = '';
   DATA.depots.forEach(d => {
@@ -310,7 +360,7 @@ function render() {
       if (d.key === depot) return;
       depot = d.key; localStorage.setItem('orxoi.admin.depot', depot);
       openNotes = {};
-      load().catch(e => toast(e.message, true));
+      render();                       // ακαριαίο — τα δεδομένα είναι ήδη εδώ
     };
     deps.appendChild(b);
   });
@@ -380,9 +430,7 @@ function topBar(D) {
   bar.appendChild(h);
 
   bar.appendChild(depField(D, 'officer', 'Αξιωματικός υπηρεσίας', 'dl-officers'));
-
-  const em = depField(D, 'email', 'Email', null);
-  bar.appendChild(em);
+  bar.appendChild(depField(D, 'email', 'Email', null));
 
   const wrap = document.createElement('div');
   wrap.className = 'sendwrap';
@@ -408,7 +456,7 @@ function depField(D, field, label, list) {
   const l = document.createElement('label'); l.textContent = label;
   const i = document.createElement('input');
   i.value = D[field] || '';
-  i.size = field === 'email' ? 24 : 18;
+  i.size = field === 'email' ? 22 : 16;
   if (list) i.setAttribute('list', list);
 
   let before = i.value;
@@ -416,12 +464,11 @@ function depField(D, field, label, list) {
     const v = i.value.trim();
     if (v === before) return;
     if (!(await ensureKey())) { i.value = before; return; }
-    try {
-      const r = await send({ action: 'setDepot', depot: D.key, field: field, value: v });
-      D[field] = v; before = v;
-      if (r.email) { D.email = r.email; render(); }
-      else render();
-    } catch (e) { i.value = before; toast(e.message, true); }
+    const prev = D[field];
+    D[field] = v; before = v;
+    const r = await send({ action: 'setDepot', depot: D.key, field: field, value: v },
+      e => { D[field] = prev; i.value = prev; toast(e.message, true); });
+    if (r && r.email) { D.email = r.email; render(); }
   };
   i.onkeydown = e => { if (e.key === 'Enter') i.blur(); if (e.key === 'Escape') { i.value = before; i.blur(); } };
 
@@ -460,36 +507,37 @@ function vehicleRow(r, D) {
   row.appendChild(ea);
 
   const inp = document.createElement('input');
+  inp.className = 'load';
   inp.value = r.load || '';
   inp.placeholder = '—';
   inp.setAttribute('list', 'dl-load');
-  inp.title = 'Οδηγός ή κατάσταση';
+  inp.title = r.load || 'Οδηγός ή κατάσταση';
 
   let before = inp.value;
   inp.onblur = async () => {
     const v = inp.value.trim();
     if (v === before) return;
     const prev = r.load;
-    r.load = v;
+    r.load = v; before = v;
     bar.style.background = colorOf(v);
-    before = v;
-    recount(); refreshCounts();
-    try {
-      await send({ action: 'setEntry', depot: D.key, row: r.row, ea: r.ea, load: v });
-    } catch (e) {
+    inp.title = v || 'Οδηγός ή κατάσταση';
+    recount(D); refreshCounts();
+    send({ action: 'setEntry', depot: D.key, row: r.row, ea: r.ea, load: v }, e => {
       r.load = prev; inp.value = prev; before = prev;
       bar.style.background = colorOf(prev);
-      recount(); refreshCounts();
+      recount(D); refreshCounts();
       toast(e.message, true);
-    }
+    });
   };
   inp.onkeydown = e => { if (e.key === 'Enter') inp.blur(); if (e.key === 'Escape') { inp.value = before; inp.blur(); } };
   row.appendChild(inp);
 
-  const sig = document.createElement('span');
-  sig.className = 'sig' + (r.by ? '' : ' none');
-  if (r.by) sig.title = 'Δηλώθηκε από ' + r.by + (r.time ? ' στις ' + r.time : '');
-  row.appendChild(sig);
+  if (r.by) {
+    const sig = document.createElement('span');
+    sig.className = 'sig';
+    sig.title = 'Δηλώθηκε από ' + r.by + (r.time ? ' στις ' + r.time : '');
+    row.appendChild(sig);
+  }
 
   const pen = document.createElement('button');
   pen.className = 'pen' + (r.notes ? ' has' : '');
@@ -520,17 +568,15 @@ function notesRow(r, D) {
   i.placeholder = 'παρατηρήσεις';
 
   let before = i.value;
-  i.onblur = async () => {
+  i.onblur = () => {
     const v = i.value.trim();
     if (v === before) return;
     const prev = r.notes;
     r.notes = v; before = v;
-    try {
-      await send({ action: 'setEntry', depot: D.key, row: r.row, ea: r.ea, notes: v });
-    } catch (e) {
+    send({ action: 'setEntry', depot: D.key, row: r.row, ea: r.ea, notes: v }, e => {
       r.notes = prev; i.value = prev; before = prev;
       toast(e.message, true);
-    }
+    });
   };
   i.onkeydown = e => { if (e.key === 'Enter') i.blur(); if (e.key === 'Escape') { i.value = before; i.blur(); } };
 
@@ -545,15 +591,32 @@ function addVehicleRow(D, shift) {
   i.placeholder = '+ Ε.Α.';
   const b = document.createElement('button');
   b.textContent = 'Προσθήκη';
+
   const go = async () => {
     const ea = i.value.trim();
     if (!ea) return;
     if (!(await ensureKey())) return;
-    try {
-      await send({ action: 'addVehicle', depot: D.key, shift: shift === '—' ? '' : shift, ea: ea });
-      i.value = '';
-      await load();
-    } catch (e) { toast(e.message, true); }
+
+    // Έλεγχος διπλού Ε.Α. τοπικά — όλοι οι όρχοι είναι ήδη στη μνήμη.
+    let where = null;
+    DATA.depots.forEach(d => (d.rows || []).forEach(r => { if (r.ea === ea) where = d.title; }));
+    if (where) { toast('Το ' + ea + ' υπάρχει ήδη στον όρχο ' + where, true); return; }
+
+    const row = { row: 0, shift: shift === '—' ? '' : shift, ea, load: '', notes: '', by: '', time: '' };
+    D.rows.push(row);
+    D.rows.sort((a, b2) => (parseInt(a.ea, 10) || 0) - (parseInt(b2.ea, 10) || 0));
+    recount(D);
+    i.value = '';
+    render();
+    const nf = document.querySelector('.col .addveh input');
+    if (nf) nf.focus();
+
+    send({ action: 'addVehicle', depot: D.key, shift: row.shift, ea }, e => {
+      const k = D.rows.indexOf(row);
+      if (k >= 0) D.rows.splice(k, 1);
+      recount(D); render();
+      toast(e.message, true);
+    });
   };
   b.onclick = go;
   i.onkeydown = e => { if (e.key === 'Enter') go(); };
@@ -571,8 +634,8 @@ function refreshCounts() {
     const c = D.byShift[name];
     if (c) el.querySelector('span').textContent = c.active + ' / ' + c.total;
   });
-  const btn = document.querySelector('.dep[aria-current="true"] .c');
-  if (btn) btn.textContent = D.active + '/' + D.total;
+  const b = document.querySelector('.dep[aria-current="true"] .c');
+  if (b) b.textContent = D.active + '/' + D.total;
 }
 
 function datalists() {
@@ -583,8 +646,7 @@ function datalists() {
     items.forEach(v => { const o = document.createElement('option'); o.value = v; dl.appendChild(o); });
     document.body.appendChild(dl);
   };
-  const names = DATA.staff.map(s => s.surname);
-  make('dl-load', DATA.lists.statuses.concat(names));
+  make('dl-load', DATA.lists.statuses.concat(DATA.staff.map(s => s.surname)));
   make('dl-officers', DATA.staff.filter(s => s.officer).map(s => s.surname));
 }
 
@@ -594,28 +656,43 @@ $('btnAddDepot').onclick = async () => {
   const n = $('newDepot').value.trim();
   if (!n) return;
   if (!(await ensureKey())) return;
-  try {
-    await send({ action: 'addDepot', name: n, title: n });
-    $('newDepot').value = ''; toast('Ο όρχος προστέθηκε'); load();
-  } catch (e) { toast(e.message, true); }
+  $('newDepot').value = '';
+  const r = await send({ action: 'addDepot', name: n, title: n });
+  if (r) { depot = n; await load(); }
 };
 
 async function removeVehicle(r, D) {
   if (!confirm('Διαγραφή του ' + r.ea + ' από τον όρχο ' + D.title + ';')) return;
   if (!(await ensureKey())) return;
-  try {
-    await send({ action: 'deleteVehicle', depot: D.key, row: r.row, ea: r.ea });
-    await load();
-  } catch (e) { toast(e.message, true); }
+
+  const at = D.rows.indexOf(r);
+  D.rows.splice(at, 1);
+  recount(D); render();
+
+  send({ action: 'deleteVehicle', depot: D.key, row: r.row, ea: r.ea }, e => {
+    D.rows.splice(at, 0, r);
+    recount(D); render();
+    toast(e.message, true);
+  });
 }
 
 async function clearDay(target, label) {
   if (!confirm('Καθαρισμός για ' + label + ';\n\nΣβήνονται χρεώσεις, παρατηρήσεις και έλεγχοι.\nΤα οχήματα μένουν.')) return;
   if (!(await ensureKey())) return;
-  try {
-    await send({ action: 'clearDay', depot: target });
-    await load();
-  } catch (e) { toast(e.message, true); }
+
+  const snapshot = JSON.stringify(DATA.depots);
+  DATA.depots.forEach(d => {
+    if (target !== '*' && d.key !== target) return;
+    (d.rows || []).forEach(r => { r.load = ''; r.notes = ''; r.by = ''; r.time = ''; });
+    d.checkedBy = ''; d.checkedAt = ''; d.sent = '';
+    recount(d);
+  });
+  render();
+
+  send({ action: 'clearDay', depot: target }, e => {
+    DATA.depots = JSON.parse(snapshot);
+    render(); toast(e.message, true);
+  });
 }
 
 /* ---------- email ---------- */
@@ -624,53 +701,92 @@ let mailTarget = null;
 async function openMail(target) {
   if (!(await ensureKey())) return;
   mailTarget = target;
-  try {
-    const r = await send({ action: 'previewPlan', depot: target });
-    $('mailHead').textContent = 'Προς: ' + (r.to || '— λείπει email —');
-    $('mailBody').textContent = r.text;
-    $('mailSend').disabled = !r.to;
-    $('dlgMail').showModal();
-  } catch (e) { toast(e.message, true); }
+  $('mailHead').textContent = 'Προεπισκόπηση…';
+  $('mailBody').textContent = '';
+  $('mailSend').disabled = true;
+  $('dlgMail').showModal();
+
+  const r = await send({ action: 'previewPlan', depot: target });
+  if (!r) { $('dlgMail').close(); return; }
+  $('mailHead').textContent = 'Προς: ' + (r.to || '— λείπει email —');
+  $('mailBody').textContent = r.text;
+  $('mailSend').disabled = !r.to;
 }
 $('mailCancel').onclick = () => $('dlgMail').close();
 $('mailSend').onclick = async () => {
   const b = $('mailSend');
   b.disabled = true; b.textContent = 'Αποστολή…';
-  try {
-    await send({ action: 'sendPlan', depot: mailTarget });
+  const r = await send({ action: 'sendPlan', depot: mailTarget });
+  b.disabled = false; b.textContent = 'Αποστολή';
+  if (r) {
     $('dlgMail').close();
     toast('Στάλθηκε');
-    load();
-  } catch (e) { toast(e.message, true); }
-  b.disabled = false; b.textContent = 'Αποστολή';
+    const D = DATA.depots.find(x => x.key === mailTarget);
+    if (D) { D.sent = r.sent; render(); }
+  }
 };
 
-/* ---------- λίστες & προσωπικό ---------- */
+/* ---------- λίστες ---------- */
 
 const lines = t => t.split('\n').map(x => x.trim()).filter(Boolean);
+
+function statusRow(name, color) {
+  const w = document.createElement('div');
+  w.className = 'strow';
+
+  const t = document.createElement('input');
+  t.type = 'text'; t.value = name || ''; t.placeholder = 'όνομα κατάστασης';
+
+  const c = document.createElement('input');
+  c.type = 'color';
+  c.value = /^#[0-9a-f]{6}$/i.test(color || '') ? color : '#8b98a6';
+  c.title = 'Χρώμα';
+
+  const d = document.createElement('button');
+  d.textContent = '✕'; d.title = 'Αφαίρεση';
+  d.onclick = () => w.remove();
+
+  w.appendChild(t); w.appendChild(c); w.appendChild(d);
+  return w;
+}
 
 $('btnLists').onclick = async () => {
   if (!(await ensureKey())) return;
   $('taShifts').value = DATA.lists.shifts.join('\n');
-  $('taStatuses').value = DATA.lists.statuses
-    .map(s => DATA.lists.colors[s] ? s + ' | ' + DATA.lists.colors[s] : s).join('\n');
+  const list = $('stList');
+  list.innerHTML = '';
+  DATA.lists.statuses.forEach(s => list.appendChild(statusRow(s, DATA.lists.colors[s])));
+  if (!DATA.lists.statuses.length) {
+    [['ΑΚΙΝΗΤΟΠΟΙΗΣΗ', '#b02525'], ['ΣΥΝΕΡΓΕΙΟ', '#b06a00'], ['ΥΠΟΔΙΕΥΘΥΝΣΗ', '#5f7183']]
+      .forEach(([n, c]) => list.appendChild(statusRow(n, c)));
+  }
   $('dlgLists').showModal();
+};
+$('stAdd').onclick = () => {
+  const w = statusRow('', '#8b98a6');
+  $('stList').appendChild(w);
+  w.querySelector('input[type=text]').focus();
 };
 $('listsCancel').onclick = () => $('dlgLists').close();
 $('listsSave').onclick = async () => {
   const statuses = [], colors = {};
-  lines($('taStatuses').value).forEach(l => {
-    const i = l.indexOf('|');
-    const name = (i < 0 ? l : l.slice(0, i)).trim();
-    if (!name) return;
-    statuses.push(name);
-    if (i >= 0) colors[name] = l.slice(i + 1).trim();
+  $('stList').querySelectorAll('.strow').forEach(w => {
+    const n = w.querySelector('input[type=text]').value.trim();
+    if (!n || statuses.indexOf(n) >= 0) return;
+    statuses.push(n);
+    colors[n] = w.querySelector('input[type=color]').value;
   });
-  try {
-    await send({ action: 'saveLists', statuses, colors, shifts: lines($('taShifts').value) });
-    $('dlgLists').close(); toast('Αποθηκεύτηκε'); load();
-  } catch (e) { toast(e.message, true); }
+  const shifts = lines($('taShifts').value);
+  const r = await send({ action: 'saveLists', statuses, colors, shifts });
+  if (r) {
+    DATA.lists = { statuses, colors, shifts };
+    $('dlgLists').close(); toast('Αποθηκεύτηκε');
+    DATA.depots.forEach(recount);
+    render();
+  }
 };
+
+/* ---------- προσωπικό ---------- */
 
 $('btnStaff').onclick = async () => {
   if (!(await ensureKey())) return;
@@ -688,12 +804,11 @@ $('staffSave').onclick = async () => {
       officer: /^(ΑΞ|AΞ|ΝΑΙ|NAI|YES|X|Χ)$/i.test(p[4] || '')
     };
   });
-  try {
-    await send({ action: 'saveStaff', staff });
-    $('dlgStaff').close(); toast('Αποθηκεύτηκε'); load();
-  } catch (e) { toast(e.message, true); }
+  const r = await send({ action: 'saveStaff', staff });
+  if (r) { DATA.staff = staff; $('dlgStaff').close(); toast('Αποθηκεύτηκε'); datalists(); }
 };
 
+$('btnHist').onclick = () => { location.href = 'istoriko.html'; };
 $('btnKey').onclick = askKey;
 
 /* ---------- εκκίνηση ---------- */
@@ -707,13 +822,12 @@ $('btnKey').onclick = askKey;
   catch (e) { $('body').innerHTML = '<div class="warn">Δεν φόρτωσαν τα δεδομένα.<br>' + esc(e.message) + '</div>'; }
 
   setInterval(() => {
-    if (document.hidden) return;
-    if (busy) return;
+    if (document.hidden || pending) return;
     const a = document.activeElement;
     if (a && ['INPUT', 'TEXTAREA'].indexOf(a.tagName) >= 0) return;
     if (document.querySelector('dialog[open]')) return;
     load().catch(() => {});
-  }, 30000);
+  }, 45000);
 })();
 </script>
 </body>
