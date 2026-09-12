@@ -73,12 +73,13 @@ tr.grp td{background:var(--band);font-weight:650;font-size:.8rem;color:var(--nav
   <button class="tab" data-v="day" role="tab">Εικόνα ημέρας</button>
   <button class="tab" data-v="veh" role="tab">Όχημα</button>
   <button class="tab" data-v="sum" role="tab">Σύνοψη</button>
+  <button class="tab" data-v="info" role="tab">Πληροφορίες</button>
 </div>
 
 <main id="main"><div class="note">Φόρτωση…</div></main>
 
 <script>
-const API_URL = 'https://script.google.com/macros/s/AKfycbw94CQU8JZr-v4m2ys76QVoYdvMfT9-CuG9Tc_m-Rq5ffqEPd0amrgPlKpNS-iprwLY/exec';
+const API_URL = 'ΒΑΛΕ_ΕΔΩ_ΤΟ_EXEC_URL';
 
 let IX = null;
 let view = 'day';
@@ -294,23 +295,22 @@ function drawSum() {
   main.appendChild(el('div', 'note', 'Κάθε κελί δείχνει ενεργά προς σύνολο οχημάτων εκείνης της βάρδιας.'));
 }
 
-function draw() {
-  if (view === 'day') drawDay();
-  else if (view === 'veh') drawVeh();
-  else drawSum();
-}
+/* ---------- πληροφορίες: μόνο Γ' αλλαγή ---------- */
 
-$('back').onclick = () => { location.href = 'admin.html'; };
+let LIVE = null, OUT = null;
 
-(async function () {
-  tabs();
-  if (API_URL.indexOf('http') !== 0) {
-    $('main').innerHTML = '<div class="note bad">Λείπει η διεύθυνση του API. Συμπλήρωσε το API_URL στο istoriko.html.</div>';
+async function drawInfo() {
+  const main = $('main');
+  main.innerHTML = '<div class="note">Φόρτωση…</div>';
+
+  try {
+    if (!LIVE) LIVE = await get('all=1');
+    if (!OUT) OUT = await get('view=outages');
+  } catch (e) {
+    main.innerHTML = '<div class="note bad">' + esc(e.message) + '</div>';
     return;
   }
-  try { IX = await get('view=archive'); draw(); }
-  catch (e) { $('main').innerHTML = '<div class="note bad">' + esc(e.message) + '</div>'; }
-})();
-</script>
-</body>
-</html>
+
+  const st = LIVE.lists.statuses;
+  const isSt = v => v && st.indexOf(v) >= 0;
+  const c
