@@ -99,7 +99,10 @@ input[type=text]:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 2p
 </header>
 
 <div class="strip" id="strip"></div>
-<div class="count"><span id="cnt">Φόρτωση…</span><button class="who" id="who">—</button></div>
+<div class="count">
+  <span id="cnt">Φόρτωση…</span>
+  <span><button class="who" id="onlyBtn">όλα</button> · <button class="who" id="who">—</button></span>
+</div>
 
 <main id="main"></main>
 <div class="checkbar" id="checkbar" hidden></div>
@@ -114,11 +117,14 @@ let shift = localStorage.getItem('orxoi.shift') || '';
 let me    = localStorage.getItem('orxoi.name')  || '';
 let open  = null;
 let busy  = 0;
+let onlyFlagged = localStorage.getItem('orxoi.only') === '1';
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const isStatus = v => v && DATA.lists.statuses.indexOf(v) >= 0;
 const colorOf = v => isStatus(v) ? (DATA.lists.colors[v] || '#8b98a6') : '#1a7a45';
+
+const CACHE = 'orxoi.cache';
 
 async function load() {
   const q = depot ? '&depot=' + encodeURIComponent(depot) : '';
@@ -127,6 +133,7 @@ async function load() {
   if (!d.ok) throw new Error(d.error);
   DATA = d;
   depot = d.current || '';
+  try { localStorage.setItem(CACHE, JSON.stringify(d)); } catch (e) {}
   render();
 }
 
@@ -181,11 +188,12 @@ function shiftNames(D) {
     const n = r.shift || '—';
     if (found.indexOf(n) < 0) found.push(n);
   });
-  const order = DATA.lists.shifts;
-  if (order.length) found.sort((a, b) => {
-    const i = order.indexOf(a), j = order.indexOf(b);
-    return (i < 0 ? 99 : i) - (j < 0 ? 99 : j);
-  });
+  const ORDER = ['Α', 'Β', 'Γ', 'Δ'];
+  const rank = n => {
+    const i = ORDER.indexOf(String(n).trim().toUpperCase());
+    return i < 0 ? 90 : i;
+  };
+  found.sort((a, b) => rank(a) - rank(b) || (a < b ? -1 : 1));
   return found;
 }
 
@@ -238,8 +246,14 @@ function render() {
   $('cnt').innerHTML = 'Ενεργά <b>' + D.active + '</b> από ' + D.total +
     (D.officer ? ' · Αξ.Υπ. ' + esc(D.officer) : '');
 
-  (D.rows || []).filter(r => (r.shift || '—') === shift)
-    .forEach(r => main.appendChild(vehicle(r, D)));
+  let list = (D.rows || []).filter(r => (r.shift || '—') === shift);
+  if (onlyFlagged) list = list.filter(r => r.load || r.notes);
+  $('onlyBtn').textContent = onlyFlagged ? 'μόνο χρεωμένα' : 'όλα';
+  if (!list.length) {
+    main.appendChild(Object.assign(document.createElement('div'),
+      { className: 'note', textContent: onlyFlagged ? 'Καμία χρέωση σε αυτή την αλλαγή.' : 'Κανένα όχημα.' }));
+  }
+  list.forEach(r => main.appendChild(vehicle(r, D)));
 
   checkbar(D);
 }
@@ -386,6 +400,11 @@ function checkbar(D) {
   bar.appendChild(b);
 }
 
+$('onlyBtn').onclick = () => {
+  onlyFlagged = !onlyFlagged;
+  localStorage.setItem('orxoi.only', onlyFlagged ? '1' : '0');
+  render();
+};
 $('who').onclick = () => { askName(true); render(); };
 
 (async function () {
@@ -394,10 +413,17 @@ $('who').onclick = () => { askName(true); render(); };
     $('cnt').textContent = 'Χωρίς σύνδεση';
     return;
   }
+  try {
+    const c = localStorage.getItem(CACHE);
+    if (c) { DATA = JSON.parse(c); depot = DATA.current || depot; render(); }
+  } catch (e) {}
+
   try { await load(); if (!me) askName(); }
   catch (e) {
-    $('main').innerHTML = '<div class="note bad">Δεν φόρτωσαν τα δεδομένα.<br>' + esc(e.message) + '</div>';
-    $('cnt').textContent = 'Σφάλμα';
+    if (!DATA) {
+      $('main').innerHTML = '<div class="note bad">Δεν φόρτωσαν τα δεδομένα.<br>' + esc(e.message) + '</div>';
+      $('cnt').textContent = 'Σφάλμα';
+    } else toast('Δεν ανανεώθηκε', true);
   }
   setInterval(() => {
     if (document.hidden || open || busy) return;
