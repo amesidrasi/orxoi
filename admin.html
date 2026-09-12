@@ -127,6 +127,20 @@ pre{white-space:pre-wrap;background:var(--band);padding:.85rem;border-radius:5px
   cursor:pointer;font-size:.85rem;color:var(--sub);width:100%}
 .addst:hover{border-color:var(--navy);color:var(--navy)}
 
+.tot{display:flex;align-items:center;gap:.9rem;flex-wrap:wrap;margin-bottom:.7rem;
+  padding:.5rem .8rem;border:1px solid var(--line);border-radius:6px;background:var(--band)}
+.tot .big{font-size:1.05rem;font-weight:650;font-variant-numeric:tabular-nums}
+.tot .big.ok{color:var(--ok)}
+.tot .big.miss{color:var(--bad)}
+.tot .x{font-size:.8rem;color:var(--sub)}
+.tot .sep{width:1px;align-self:stretch;background:var(--line)}
+.veh.hit{background:#fff6d8;border-radius:4px}
+.veh.hit .ea{color:var(--bad)}
+.swatches{display:flex;gap:.2rem;flex-wrap:wrap;max-width:11rem}
+.sw{width:1.1rem;height:1.1rem;border-radius:50%;border:2px solid transparent;cursor:pointer;padding:0}
+.sw[aria-pressed="true"]{border-color:var(--ink)}
+.mv{background:none;border:none;color:#c3ccd5;cursor:pointer;padding:.1rem .18rem;font-size:.7rem}
+.mv:hover{color:var(--navy)}
 .toast{position:fixed;right:1rem;bottom:1rem;background:var(--navy);color:#fff;
   padding:.55rem .95rem;border-radius:5px;font-size:.83rem;z-index:60;
   opacity:0;pointer-events:none;transition:opacity .16s;max-width:26rem}
@@ -144,6 +158,8 @@ pre{white-space:pre-wrap;background:var(--band);padding:.85rem;border-radius:5px
     <button class="nav" id="dNext" title="Επόμενη μέρα">›</button>
   </div>
   <div class="f"><span>Ωράριο</span><input id="fHours" size="11" list="dl-hours"></div>
+  <div class="f"><span>Στόχος</span><input id="fTarget" size="4" inputmode="numeric" title="Πόσους οδηγούς θέλεις σήμερα"></div>
+  <div class="f"><input id="fFind" size="10" placeholder="🔍 Ε.Α." list="dl-all-ea"></div>
   <div class="sp"></div>
   <span class="st" id="sync"></span>
   <button class="b" id="btnHist">Ιστορικό</button>
@@ -234,14 +250,41 @@ const toGR = iso => {
   return m ? (+m[3]) + '/' + (+m[2]) + '/' + m[1] : '';
 };
 
+/* ---------- ωράριο, τοπικά ---------- */
+
+const CYCLE = ['13:00-21:00', '21:00-05:30', '', '05:30-13:00'];
+const CYCLE_REF = Date.UTC(2026, 8, 8);
+function hoursForISO(iso) {
+  const m = String(iso || '').match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!m) return '';
+  const d = Date.UTC(+m[1], +m[2] - 1, +m[3]);
+  const n = Math.round((d - CYCLE_REF) / 864e5);
+  return CYCLE[((n % 4) + 4) % 4];
+}
+
+/* ---------- διπλά Ε.Α., τοπικά ---------- */
+
+function recomputeDupes() {
+  const seen = {}, dup = {};
+  DATA.depots.forEach(d => (d.rows || []).forEach(r => {
+    if (seen[r.ea]) (dup[r.ea] = dup[r.ea] || [seen[r.ea]]).push(d.title);
+    else seen[r.ea] = d.title;
+  }));
+  DATA.duplicates = dup;
+}
+
 /* ---------- επικοινωνία ---------- */
 
-async function load() {
+const CACHE = 'orxoi.admin.cache';
+
+async function load(quiet) {
   const r = await fetch(API_URL + '?all=1&t=' + Date.now());
   const d = await r.json();
   if (!d.ok) throw new Error(d.error);
   DATA = d;
   if (!depot || !d.depots.some(x => x.key === depot)) depot = d.depots.length ? d.depots[0].key : '';
+  recomputeDupes();
+  try { localStorage.setItem(CACHE, JSON.stringify(d)); } catch (e) {}
   render();
   $('sync').textContent = new Date().toLocaleTimeString('el-GR', { hour: '2-digit', minute: '2-digit' });
 }
@@ -287,6 +330,12 @@ const ensureKey = async () => key ? true : askKey();
 
 const dep = () => DATA.depots.find(d => d.key === depot);
 
+const SHIFT_ORDER = ['Α', 'Β', 'Γ', 'Δ'];
+function shiftRank(n) {
+  const i = SHIFT_ORDER.indexOf(String(n).trim().toUpperCase());
+  return i < 0 ? 90 + String(n).charCodeAt(0) % 9 : i;
+}
+
 function recount(D) {
   D = D || dep();
   if (!D || !D.rows) return;
@@ -306,13 +355,12 @@ async function setDay(iso) {
   if (!(await ensureKey())) return;
   const gr = toGR(iso);
   DATA.day = gr;
+  DATA.hours = hoursForISO(iso);      // υπολογίζεται εδώ, χωρίς αναμονή
   $('fDay').value = iso;
-  const r = await send({ action: 'setSetting', name: 'ΗΜΕΡΟΜΗΝΙΑ', value: gr });
-  if (r) {
-    DATA.hours = r.hours || '';
-    $('fHours').value = DATA.hours;
-    if (!DATA.hours) toast('Προσοχή: εκείνη η μέρα είναι αδιάθετο', true);
-  }
+  $('fHours').value = DATA.hours;
+  if (!DATA.hours) toast('Προσοχή: εκείνη η μέρα είναι αδιάθετο', true);
+  send({ action: 'setSetting', name: 'ΗΜΕΡΟΜΗΝΙΑ', value: gr });
+  send({ action: 'setSetting', name: 'ΩΡΑΡΙΟ', value: DATA.hours });
 }
 
 $('fDay').onchange = () => setDay($('fDay').value);
@@ -346,6 +394,7 @@ function render() {
   $('title').textContent = DATA.title || 'Όρχοι';
   if (document.activeElement !== $('fDay')) $('fDay').value = toISO(DATA.day);
   if (document.activeElement !== $('fHours')) $('fHours').value = DATA.hours || '';
+  if (document.activeElement !== $('fTarget')) $('fTarget').value = DATA.target || '';
 
   const deps = $('deps'); deps.innerHTML = '';
   DATA.depots.forEach(d => {
@@ -387,6 +436,7 @@ function render() {
     return;
   }
 
+  body.appendChild(totalsBar());
   body.appendChild(topBar(D));
   if (!D.rows) return;
 
@@ -398,10 +448,7 @@ function render() {
     if (!g) groups.push(g = { name: n, rows: [] });
     g.rows.push(r);
   });
-  if (order.length) groups.sort((a, b) => {
-    const i = order.indexOf(a.name), j = order.indexOf(b.name);
-    return (i < 0 ? 99 : i) - (j < 0 ? 99 : j);
-  });
+  groups.sort((a, b) => shiftRank(a.name) - shiftRank(b.name));
 
   const grid = document.createElement('div');
   grid.className = 'cols';
@@ -419,6 +466,48 @@ function render() {
   body.appendChild(foot);
 
   datalists();
+}
+
+function charged(d) {
+  return (d.rows || []).filter(r => r.load && !isStatus(r.load)).length;
+}
+
+function totalsBar() {
+  const bar = document.createElement('div');
+  bar.className = 'tot';
+  bar.id = 'totals';
+  paintTotals(bar);
+  return bar;
+}
+
+function paintTotals(bar) {
+  bar = bar || document.getElementById('totals');
+  if (!bar) return;
+
+  const tgt = parseInt(DATA.target, 10);
+  let drivers = 0, active = 0, total = 0, checked = 0;
+  DATA.depots.forEach(d => {
+    drivers += charged(d);
+    active += d.active; total += d.total;
+    if (d.checkedAt) checked++;
+  });
+
+  let html = '';
+  if (tgt > 0) {
+    const left = tgt - drivers;
+    const cls = left === 0 ? 'ok' : 'miss';
+    html += '<span class="big ' + cls + '">' + drivers + ' / ' + tgt + '</span>' +
+      '<span class="x">' + (left === 0 ? 'συμπληρώθηκε' :
+        left > 0 ? 'λείπουν ' + left : 'περισσεύουν ' + (-left)) + '</span>';
+  } else {
+    html += '<span class="big">' + drivers + '</span><span class="x">χρεωμένα — όρισε στόχο πάνω</span>';
+  }
+  html += '<span class="sep"></span><span class="x">Ενεργά ' + active + ' από ' + total + '</span>';
+  html += '<span class="sep"></span><span class="x">Έλεγχος ' + checked + ' από ' + DATA.depots.length + ' όρχους</span>';
+  html += '<span class="sep"></span><span class="x">' +
+    DATA.depots.map(d => esc(d.title) + ' ' + charged(d)).join(' · ') + '</span>';
+
+  bar.innerHTML = html;
 }
 
 function topBar(D) {
@@ -551,12 +640,46 @@ function vehicleRow(r, D) {
   };
   row.appendChild(pen);
 
+  const mv = document.createElement('button');
+  mv.className = 'mv'; mv.textContent = '⇄'; mv.title = 'Μετακίνηση σε άλλον όρχο ή αλλαγή';
+  mv.onclick = () => moveVehicle(r, D);
+  row.appendChild(mv);
+
   const del = document.createElement('button');
   del.className = 'del'; del.textContent = '✕'; del.title = 'Διαγραφή οχήματος';
   del.onclick = () => removeVehicle(r, D);
   row.appendChild(del);
 
   return row;
+}
+
+async function moveVehicle(r, D) {
+  const names = DATA.depots.map(d => d.title).join(', ');
+  const t = prompt('Μετακίνηση του ' + r.ea + '\n\nΌρχος (' + names + '):', D.title);
+  if (t === null) return;
+  const target = DATA.depots.find(d => d.title.toUpperCase() === t.trim().toUpperCase());
+  if (!target) { toast('Άγνωστος όρχος: ' + t, true); return; }
+
+  const sh = prompt('Αλλαγή (Α, Β, Γ, Δ):', r.shift || '');
+  if (sh === null) return;
+  const shift = sh.trim().toUpperCase();
+
+  if (target.key === D.key && shift === (r.shift || '')) return;
+  if (!(await ensureKey())) return;
+
+  const snapshot = JSON.stringify(DATA.depots);
+  const at = D.rows.indexOf(r);
+  D.rows.splice(at, 1);
+  const moved = Object.assign({}, r, { shift: shift, row: 0 });
+  target.rows = target.rows || [];
+  target.rows.push(moved);
+  target.rows.sort((a, b) => (parseInt(a.ea, 10) || 0) - (parseInt(b.ea, 10) || 0));
+  recount(D); recount(target); recomputeDupes(); render();
+
+  send({ action: 'moveVehicle', depot: D.key, row: r.row, ea: r.ea, to: target.key, shift: shift }, e => {
+    DATA.depots = JSON.parse(snapshot);
+    recomputeDupes(); render(); toast(e.message, true);
+  });
 }
 
 function notesRow(r, D) {
@@ -605,7 +728,7 @@ function addVehicleRow(D, shift) {
     const row = { row: 0, shift: shift === '—' ? '' : shift, ea, load: '', notes: '', by: '', time: '' };
     D.rows.push(row);
     D.rows.sort((a, b2) => (parseInt(a.ea, 10) || 0) - (parseInt(b2.ea, 10) || 0));
-    recount(D);
+    recount(D); recomputeDupes();
     i.value = '';
     render();
     const nf = document.querySelector('.col .addveh input');
@@ -614,7 +737,7 @@ function addVehicleRow(D, shift) {
     send({ action: 'addVehicle', depot: D.key, shift: row.shift, ea }, e => {
       const k = D.rows.indexOf(row);
       if (k >= 0) D.rows.splice(k, 1);
-      recount(D); render();
+      recount(D); recomputeDupes(); render();
       toast(e.message, true);
     });
   };
@@ -636,7 +759,9 @@ function refreshCounts() {
   });
   const b = document.querySelector('.dep[aria-current="true"] .c');
   if (b) b.textContent = D.active + '/' + D.total;
+  paintTotals();
 }
+const refreshTotals = () => paintTotals();
 
 function datalists() {
   const make = (id, items) => {
@@ -647,6 +772,10 @@ function datalists() {
     document.body.appendChild(dl);
   };
   make('dl-load', DATA.lists.statuses.concat(DATA.staff.map(s => s.surname)));
+  const allEa = [];
+  DATA.depots.forEach(d => (d.rows || []).forEach(r => allEa.push(r.ea)));
+  make('dl-all-ea', allEa.sort());
+  make('dl-depots', DATA.depots.map(d => d.title));
   make('dl-officers', DATA.staff.filter(s => s.officer).map(s => s.surname));
 }
 
@@ -667,11 +796,11 @@ async function removeVehicle(r, D) {
 
   const at = D.rows.indexOf(r);
   D.rows.splice(at, 1);
-  recount(D); render();
+  recount(D); recomputeDupes(); render();
 
   send({ action: 'deleteVehicle', depot: D.key, row: r.row, ea: r.ea }, e => {
     D.rows.splice(at, 0, r);
-    recount(D); render();
+    recount(D); recomputeDupes(); render();
     toast(e.message, true);
   });
 }
@@ -730,23 +859,41 @@ $('mailSend').onclick = async () => {
 
 const lines = t => t.split('\n').map(x => x.trim()).filter(Boolean);
 
+const PALETTE = [
+  '#b02525', '#7a1717', '#c2610a', '#b08900', '#d4b106', '#6f7a1a',
+  '#1a7a45', '#0f4d2c', '#0e8a8a', '#2a7fc9', '#1b3b63', '#122a4a',
+  '#6b3fa0', '#b0468a', '#7a5230', '#8b98a6'
+];
+
 function statusRow(name, color) {
   const w = document.createElement('div');
   w.className = 'strow';
 
   const t = document.createElement('input');
   t.type = 'text'; t.value = name || ''; t.placeholder = 'όνομα κατάστασης';
+  w.appendChild(t);
 
-  const c = document.createElement('input');
-  c.type = 'color';
-  c.value = /^#[0-9a-f]{6}$/i.test(color || '') ? color : '#8b98a6';
-  c.title = 'Χρώμα';
+  let chosen = /^#[0-9a-f]{6}$/i.test(color || '') ? color.toLowerCase() : '#8b98a6';
+  const sw = document.createElement('div');
+  sw.className = 'swatches';
+  const dots = [];
+  PALETTE.forEach(c => {
+    const b = document.createElement('button');
+    b.className = 'sw';
+    b.style.background = c;
+    b.title = c;
+    b.setAttribute('aria-pressed', c === chosen);
+    b.onclick = () => { chosen = c; dots.forEach(x => x.setAttribute('aria-pressed', x.title === c)); };
+    dots.push(b); sw.appendChild(b);
+  });
+  w.appendChild(sw);
+  w.getColor = () => chosen;
 
   const d = document.createElement('button');
   d.textContent = '✕'; d.title = 'Αφαίρεση';
   d.onclick = () => w.remove();
+  w.appendChild(d);
 
-  w.appendChild(t); w.appendChild(c); w.appendChild(d);
   return w;
 }
 
@@ -774,16 +921,18 @@ $('listsSave').onclick = async () => {
     const n = w.querySelector('input[type=text]').value.trim();
     if (!n || statuses.indexOf(n) >= 0) return;
     statuses.push(n);
-    colors[n] = w.querySelector('input[type=color]').value;
+    colors[n] = w.getColor ? w.getColor() : '#8b98a6';
   });
   const shifts = lines($('taShifts').value);
-  const r = await send({ action: 'saveLists', statuses, colors, shifts });
-  if (r) {
-    DATA.lists = { statuses, colors, shifts };
-    $('dlgLists').close(); toast('Αποθηκεύτηκε');
-    DATA.depots.forEach(recount);
-    render();
-  }
+  const prev = DATA.lists;
+  DATA.lists = { statuses, colors, shifts };
+  $('dlgLists').close();
+  DATA.depots.forEach(recount);
+  render();
+  send({ action: 'saveLists', statuses, colors, shifts }, e => {
+    DATA.lists = prev; DATA.depots.forEach(recount); render();
+    toast(e.message, true);
+  });
 };
 
 /* ---------- προσωπικό ---------- */
@@ -804,9 +953,59 @@ $('staffSave').onclick = async () => {
       officer: /^(ΑΞ|AΞ|ΝΑΙ|NAI|YES|X|Χ)$/i.test(p[4] || '')
     };
   });
-  const r = await send({ action: 'saveStaff', staff });
-  if (r) { DATA.staff = staff; $('dlgStaff').close(); toast('Αποθηκεύτηκε'); datalists(); }
+  const prev = DATA.staff;
+  DATA.staff = staff;
+  $('dlgStaff').close();
+  datalists();
+  send({ action: 'saveStaff', staff }, e => {
+    DATA.staff = prev; datalists(); toast(e.message, true);
+  });
 };
+
+(function () {
+  const el = $('fTarget');
+  let before = '';
+  el.onfocus = () => { before = el.value; };
+  el.onblur = async () => {
+    if (el.value === before) return;
+    if (!(await ensureKey())) { el.value = before; return; }
+    DATA.target = el.value.trim(); before = el.value;
+    refreshTotals();
+    send({ action: 'setSetting', name: 'ΣΤΟΧΟΣ', value: DATA.target });
+  };
+  el.onkeydown = e => { if (e.key === 'Enter') el.blur(); };
+})();
+
+/* ---------- αναζήτηση Ε.Α. ---------- */
+
+function findEA(ea) {
+  ea = String(ea || '').trim();
+  if (!ea) return;
+  let hit = null;
+  DATA.depots.forEach(d => (d.rows || []).forEach(r => { if (r.ea === ea) hit = d; }));
+  if (!hit) { toast('Το ' + ea + ' δεν βρέθηκε', true); return; }
+
+  if (hit.key !== depot) { depot = hit.key; localStorage.setItem('orxoi.admin.depot', depot); }
+  render();
+
+  const rows = [...document.querySelectorAll('.veh')];
+  const row = rows.find(x => x.querySelector('.ea') && x.querySelector('.ea').textContent === ea);
+  if (row) {
+    row.classList.add('hit');
+    row.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    const i = row.querySelector('input.load');
+    if (i) i.focus();
+    setTimeout(() => row.classList.remove('hit'), 4000);
+  }
+  toast(ea + ' — ' + hit.title);
+}
+
+$('fFind').onkeydown = e => {
+  if (e.key !== 'Enter') return;
+  findEA($('fFind').value);
+  $('fFind').value = '';
+};
+$('fFind').onchange = () => { if ($('fFind').value) { findEA($('fFind').value); $('fFind').value = ''; } };
 
 $('btnHist').onclick = () => { location.href = 'istoriko.html'; };
 $('btnKey').onclick = askKey;
@@ -818,8 +1017,23 @@ $('btnKey').onclick = askKey;
     $('body').innerHTML = '<div class="warn">Λείπει η διεύθυνση του API. Συμπλήρωσε το API_URL στο admin.html.</div>';
     return;
   }
+  // Πρώτα ό,τι είχαμε την προηγούμενη φορά — η σελίδα εμφανίζεται ακαριαία.
+  try {
+    const c = localStorage.getItem(CACHE);
+    if (c) {
+      DATA = JSON.parse(c);
+      if (!depot || !DATA.depots.some(x => x.key === depot)) depot = DATA.depots.length ? DATA.depots[0].key : '';
+      recomputeDupes();
+      render();
+      $('sync').textContent = 'ανανέωση…';
+    }
+  } catch (e) {}
+
   try { await load(); }
-  catch (e) { $('body').innerHTML = '<div class="warn">Δεν φόρτωσαν τα δεδομένα.<br>' + esc(e.message) + '</div>'; }
+  catch (e) {
+    if (!DATA) $('body').innerHTML = '<div class="warn">Δεν φόρτωσαν τα δεδομένα.<br>' + esc(e.message) + '</div>';
+    else toast('Δεν ανανεώθηκε: ' + e.message, true);
+  }
 
   setInterval(() => {
     if (document.hidden || pending) return;
