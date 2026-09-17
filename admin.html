@@ -1039,4 +1039,66 @@ function findEA(ea) {
   if (!ea) return;
   let hit = null;
   DATA.depots.forEach(d => (d.rows || []).forEach(r => { if (r.ea === ea) hit = d; }));
-  if (!hit) { toast('Το ' + ea + ' δεν βρέθηκε'
+  if (!hit) { toast('Το ' + ea + ' δεν βρέθηκε', true); return; }
+
+  if (hit.key !== depot) { depot = hit.key; localStorage.setItem('orxoi.admin.depot', depot); }
+  render();
+
+  const rows = [...document.querySelectorAll('.veh')];
+  const row = rows.find(x => x.querySelector('.ea') && x.querySelector('.ea').textContent === ea);
+  if (row) {
+    row.classList.add('hit');
+    row.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    const i = row.querySelector('input.load');
+    if (i) i.focus();
+    setTimeout(() => row.classList.remove('hit'), 4000);
+  }
+  toast(ea + ' — ' + hit.title);
+}
+
+$('fFind').onkeydown = e => {
+  if (e.key !== 'Enter') return;
+  findEA($('fFind').value);
+  $('fFind').value = '';
+};
+$('fFind').onchange = () => { if ($('fFind').value) { findEA($('fFind').value); $('fFind').value = ''; } };
+
+$('btnHist').onclick = () => { location.href = 'istoriko.html'; };
+$('btnKey').onclick = askKey;
+
+/* ---------- εκκίνηση ---------- */
+
+(async function () {
+  if (API_URL.indexOf('http') !== 0) {
+    $('body').innerHTML = '<div class="warn">Λείπει η διεύθυνση του API. Συμπλήρωσε το API_URL στο admin.html.</div>';
+    return;
+  }
+  // Πρώτα ό,τι είχαμε την προηγούμενη φορά — η σελίδα εμφανίζεται ακαριαία.
+  try {
+    const c = localStorage.getItem(CACHE);
+    if (c) {
+      DATA = JSON.parse(c);
+      if (!depot || !DATA.depots.some(x => x.key === depot)) depot = DATA.depots.length ? DATA.depots[0].key : '';
+      recomputeDupes();
+      render();
+      $('sync').textContent = 'ανανέωση…';
+    }
+  } catch (e) {}
+
+  try { await load(); }
+  catch (e) {
+    if (!DATA) $('body').innerHTML = '<div class="warn">Δεν φόρτωσαν τα δεδομένα.<br>' + esc(e.message) + '</div>';
+    else toast('Δεν ανανεώθηκε: ' + e.message, true);
+  }
+
+  setInterval(() => {
+    if (document.hidden || pending) return;
+    const a = document.activeElement;
+    if (a && ['INPUT', 'TEXTAREA'].indexOf(a.tagName) >= 0) return;
+    if (document.querySelector('dialog[open]')) return;
+    load().catch(() => {});
+  }, 45000);
+})();
+</script>
+</body>
+</html>
